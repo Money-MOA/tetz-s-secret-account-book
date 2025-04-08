@@ -1,9 +1,9 @@
 <template>
-  <div><HomeView></HomeView></div>
+  <div><HomePage></HomePage></div>
 </template>
 
 <script setup>
-import HomeView from '@/pages/HomeView.vue';
+import HomePage from './pages/HomePage.vue';
 </script>
 
 <style lang="scss" scoped></style>
