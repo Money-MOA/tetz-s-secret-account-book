@@ -1,5 +1,6 @@
 <template>
   <div>
+<<<<<<< HEAD
     <Header />
 
     <!-- 특정 경로가 아닐 때만 Sidebar 보여주기 -->
@@ -19,6 +20,19 @@ import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import Header from './components/Header.vue';
 import Sidebar from './components/Sidebar.vue';
+=======
+    <!-- <HomePage></HomePage> -->
+    <RouterLink to="/signup">회원가입</RouterLink>
+  </div>
+  <RouterView />
+</template>
+
+<script setup>
+import { RouterLink, RouterView } from 'vue-router';
+import HomePage from './pages/HomePage.vue';
+import SignupPage from './pages/SignupPage.vue';
+</script>
+>>>>>>> feat/SignupPage
 
 const route = useRoute();
 
