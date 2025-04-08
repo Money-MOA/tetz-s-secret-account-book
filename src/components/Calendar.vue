@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Modal :visible="isModalVisible"></Modal>
     <div
       class="relative w-[calc(100%-3rem)] lg:ml-60 bg-white rounded-[1rem] shadow-md overflow-hidden z-10 border-[#e0e0e0] mx-auto"
     >
@@ -59,6 +60,7 @@
         <div
           v-for="day in daysInMonth"
           :key="day"
+          @click="showModal"
           class="h-[4.2rem] bg-white rounded-[1rem] shadow-sm flex flex-col justify-start p-[16px] text-gray-800 cursor-pointer hover:bg-[#E0FAF4] transition border border-[#c3c3c3]"
         >
           <span
@@ -85,7 +87,14 @@
 
 <script setup>
 import { ref, computed } from 'vue';
+import Modal from './Modal.vue';
+import { useModalStore } from '@/stores/modalVisible';
 
+const modalStore = useModalStore();
+const { showModal } = modalStore;
+const isModalVisible = computed(
+  () => modalStore.isModalVisible
+);
 // 더미 일정 데이터
 const schedules = ref([
   {
