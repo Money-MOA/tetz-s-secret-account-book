@@ -1,0 +1,89 @@
+{
+  "user": [
+    {
+      "id": "1",
+      "userId": "hi",
+      "password": "1234",
+      "nickname": "핑구",
+      "hopeExpense": 1000000,
+      "plannedMonthlyExpenseByCategory": [
+        { "category": "식비", "amount": 10000 },
+        { "category": "교통비", "amount": 20000 },
+        { "category": "주거비", "amount": 300000 },
+        { "category": "여가비", "amount": 50000 },
+        { "category": "의료비", "amount": 30000 },
+        { "category": "문화비", "amount": 20000 },
+        { "category": "교육비", "amount": 70000 },
+        { "category": "기타", "amount": 50000 }
+      ]
+    }
+  ],
+  "history": [
+    {
+      "id": "1",
+      "userId": "1",
+      "date": "01-02",
+      "month": 1,
+      "week": 1,
+      "type": "income",
+      "category": "월급",
+      "memo": "친구 모임 가려고 함",
+      "price": 2000000
+    },
+    {
+      "id": "2",
+      "userId": "3",
+      "date": "01-03",
+      "month": 1,
+      "week": 1,
+      "type": "outcome",
+      "category": "식비",
+      "memo": "아파트 정비",
+      "price": 10000
+    }
+  ],
+  "monthlyExpense": [
+    {
+      "id": "1",
+      "userId": "1",
+      "month": 1,
+      "accumulatedExpense": 10000,
+      "isExceeded": true
+    },
+    {
+      "id": "2",
+      "userId": "1",
+      "month": 2,
+      "accumulatedExpense": 21000,
+      "isExceeded": true
+    }
+  ],
+  "weeklyExpense": [
+    {
+      "id": "1",
+      "userId": "1",
+      "month": 1,
+      "week": 1,
+      "outcome": 10000,
+      "isExceeded": false
+    },
+    {
+      "id": "2",
+      "userId": "1",
+      "month": 1,
+      "week": 2,
+      "outcome": 30000,
+      "isExceeded": true
+    }
+  ],
+  "dailyExpense": [
+    {
+      "id": "1",
+      "userId": "1",
+      "date": "2025-01-05",
+      "income": 106500,
+      "outcome": 50600,
+      "balance": 55800
+    }
+  ]
+}
