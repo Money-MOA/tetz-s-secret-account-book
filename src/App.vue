@@ -1,9 +1,9 @@
 <template>
-  <div><HomePage></HomePage></div>
+  <div><MyPage></MyPage></div>
 </template>
 
 <script setup>
-import HomePage from './pages/HomePage.vue';
+import MyPage from './pages/MyPage.vue';
 </script>
 
 <style lang="scss" scoped></style>
