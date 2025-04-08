@@ -1,7 +1,11 @@
 <template>
-  <div></div>
+  <div>
+    <Calendar />
+  </div>
 </template>
 
-<script setup></script>
+<script setup>
+import Calendar from '@/components/Calendar.vue';
+</script>
 
 <style lang="scss" scoped></style>
