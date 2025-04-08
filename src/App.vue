@@ -1,5 +1,10 @@
 <template>
-  <div><Header></Header><HomePage></HomePage></div>
+  <div>
+    <Header></Header>
+    <main class="pt-[100px]">
+      <HomePage />
+    </main>
+  </div>
 </template>
 
 <script setup>
