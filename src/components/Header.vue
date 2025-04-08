@@ -4,19 +4,27 @@
   >
     <div class="m-[2rem] w-full max-w-7xl flex items-center justify-between">
       <!-- 왼쪽: 로고 -->
-      <h1 class="text-[3rem] font-bold text-blue-600 righteous-regular">MOA</h1>
+      <RouterLink to="/main" class="no-underline">
+        <h1 class="text-[3rem] text-[#222222] font-bold righteous-regular">
+          MOA
+        </h1>
+      </RouterLink>
 
       <!-- 오른쪽: 로그인 / 회원가입 버튼 -->
       <div class="flex flex-[row] gap-[0.5rem]">
         <button
           class="text-[1rem] px-[0.75rem] py-[0.5rem] rounded-[0.5rem] text-[black] bg-[gray-500 transition border-[0]"
         >
-          로그인
+          <RouterLink to="/login" class="no-underline text-[#222222]"
+            >로그인</RouterLink
+          >
         </button>
         <button
           class="text-[1rem] px-[0.5rem] py-[0.5rem] rounded-[0.5rem] text-[white] bg-[#1cdc9f] transition border-[0]"
         >
-          <RouterLink to="/signup">회원가입</RouterLink>
+          <RouterLink to="/signup" class="no-underline text-[#222222]"
+            >회원가입</RouterLink
+          >
         </button>
       </div>
     </div>
