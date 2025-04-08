@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header />
+    <Header></Header>
     <!-- 특정 경로가 아닐 때만 Sidebar 보여주기 -->
     <Sidebar v-if="showSidebar" />
 
@@ -19,7 +19,7 @@ import Sidebar from './components/Sidebar.vue';
 const route = useRoute();
 
 // ❗ 여기에 Sidebar를 숨길 경로를 추가해
-const hideSidebarRoutes = ['/login', '/signup'];
+const hideSidebarRoutes = ['/login', '/signup', '/'];
 
 const showSidebar = computed(() => !hideSidebarRoutes.includes(route.path));
 </script>
