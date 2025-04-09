@@ -1,8 +1,8 @@
 <template>
   <div class="flex h-screen items-center justify-center bg-gray-100">
     <div
-      class="bg-[white] shadow-lg px-[32px] py-[24px] w-full max-w-[1000px] flex flex-col items-center translate-y-[-1px]"
-      style="border-radius: 100px / 60px"
+      class="bg-[white] shadow-lg px-[32px] py-[16px] w-full max-w-[1000px] flex flex-col items-center translate-y-[-1px]"
+      style="border-radius: 100px / 40px"
     >
       <!-- 프로필 영역 -->
       <div class="flex flex-col items-center mb-[48px]">

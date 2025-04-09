@@ -4,123 +4,11 @@
       "id": "1",
       "userId": "hi",
       "password": "1234",
-      "nickname": "잘했따",
-      "hopeExpense": 8,
+      "nickname": "강병현",
+      "hopeExpense": 1000000,
       "plannedMonthlyExpenseByCategory": [
         {
           "category": "식비",
-<<<<<<< HEAD
-          "amount": 10000
-        },
-        {
-          "category": "교통비",
-          "amount": 20000
-        },
-        {
-          "category": "주거비",
-          "amount": 300000
-        },
-        {
-          "category": "여가비",
-          "amount": 50000
-        },
-        {
-          "category": "의료비",
-          "amount": 30000
-        },
-        {
-          "category": "문화비",
-          "amount": 20000
-        },
-        {
-          "category": "교육비",
-          "amount": 70000
-        },
-        {
-          "category": "기타",
-          "amount": 50000
-        }
-      ]
-    },
-    {
-      "id": "e68e",
-      "userId": "22",
-      "password": "22",
-      "nickname": "22",
-      "hopeExpense": 0,
-      "plannedMonthlyExpenseByCategory": [
-        {
-          "category": "식비",
-          "amount": 0
-        },
-        {
-          "category": "교통비",
-          "amount": 0
-        },
-        {
-          "category": "주거비",
-          "amount": 0
-        },
-        {
-          "category": "여가비",
-          "amount": 0
-        },
-        {
-          "category": "의료비",
-          "amount": 0
-        },
-        {
-          "category": "문화비",
-          "amount": 0
-        },
-        {
-          "category": "교육비",
-          "amount": 0
-        },
-        {
-          "category": "기타",
-          "amount": 0
-        }
-      ]
-    },
-    {
-      "id": "7744",
-      "userId": "rla",
-      "password": "1234",
-      "nickname": "김",
-      "hopeExpense": 0,
-      "plannedMonthlyExpenseByCategory": [
-        {
-          "category": "식비",
-          "amount": 0
-        },
-        {
-          "category": "교통비",
-          "amount": 0
-        },
-        {
-          "category": "주거비",
-          "amount": 0
-        },
-        {
-          "category": "여가비",
-          "amount": 0
-        },
-        {
-          "category": "의료비",
-          "amount": 0
-        },
-        {
-          "category": "문화비",
-          "amount": 0
-        },
-        {
-          "category": "교육비",
-          "amount": 0
-        },
-        {
-          "category": "기타",
-=======
           "amount": 100000
         },
         {
@@ -141,7 +29,6 @@
         },
         {
           "category": "",
->>>>>>> feat/MyPage1
           "amount": 0
         }
       ]
