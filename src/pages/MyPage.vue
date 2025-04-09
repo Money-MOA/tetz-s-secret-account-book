@@ -1,84 +1,116 @@
 <template>
-  <div class="flex h-screen relative">
-    <!-- 💥 화면 전체 너비로 강제 뻗어나가는 검은 가로선 -->
+  <div class="flex h-screen items-center justify-center bg-gray-100">
+    <!-- 타원형 박스 -->
     <div
-      style="
-        position: absolute;
-        top: 64px; /* MOA 아래 정확히 위치하도록 조절 */
-        left: 0;
-        width: 100vw;
-        height: 1px;
-        background-color: black;
-        z-index: 10;
-      "
-    ></div>
-
-    <aside
-      class="w-48 bg-white border-r border-black h-full flex flex-col pt-4"
+      class="bg-white shadow-lg px-[64px] py-[48px] w-full max-w-5xl flex flex-col items-center translate-y-[-20px]"
+      style="border-radius: 100px / 60px"
     >
-      <div class="text-2xl font-bold px-4 mb-4">MOA</div>
+      <!-- 프로필 영역 -->
+      <div class="flex flex-col items-center mb-[48px]">
+        <div
+          class="w-[180px] h-[180px] rounded-full flex flex-col items-center justify-center overflow-hidden border-2 shadow-md"
+        >
+          <i class="fas fa-user text-[32px] text-blue-700 mb-[8px]"></i>
+          <h2 class="text-[16px] font-semibold text-blue-800 text-center">
+            김모아
+          </h2>
+        </div>
+        <p class="text-gray-500 mt-[16px]">rlaahdk@google.com</p>
+      </div>
 
-      <nav class="flex flex-col space-y-4 px-4">
-        <SidebarItem icon="fas fa-home" label="Home" />
-        <SidebarItem icon="fas fa-calendar-alt" label="Calendar" />
-        <SidebarItem icon="fas fa-chart-bar" label="Graph" />
-        <SidebarItem icon="fas fa-user" label="My" active />
-      </nav>
-    </aside>
-
-    <!-- Main -->
-    <main class="flex-1 bg-gray-100 p-10">
-      <div class="bg-white rounded-2xl shadow-md p-10 w-full max-w-2xl mx-auto">
-        <!-- 프로필 영역 -->
-        <div class="flex flex-col items-center mb-10">
-          <div
-            class="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center text-4xl"
+      <!-- 닉네임 변경 -->
+      <div
+        class="mb-[40px] w-[500px] translate-y-[-60px] translate-x-[-50px] text-left"
+      >
+        <p class="font-semibold mb-[px]">닉네임 변경</p>
+        <div class="relative flex">
+          <!-- 입력창 -->
+          <input
+            v-model="nickname"
+            type="text"
+            placeholder="닉네임을 입력하세요"
+            class="w-full border rounded-full px-[20px] py-[10px] text-[14px] bg-gray-50 shadow-sm focus:outline-none focus:ring-2 focus:ring-green-300"
+            style="top: 10px; right: -80px"
+          />
+          <!-- 저장 버튼 -->
+          <button
+            @click="saveNickname"
+            class="bg-[#169976] text-[white] px-[20px] py-[8px] rounded-full shadow-md absolute border-none"
+            style="top: 3px; right: -90px"
           >
-            <i class="fas fa-user"></i>
-          </div>
-          <h2 class="text-xl font-semibold mt-4">김모아</h2>
-          <p class="text-gray-400">rlaahdk@google.com</p>
+            저장
+          </button>
+        </div>
+      </div>
+
+      <!-- 월별 최대 금액 -->
+      <div class="w-[500px] translate-y-[-80px] translate-x-[-50px] text-left">
+        <p class="font-semibold mb-[8px]">월별 최대 금액</p>
+        <div class="relative flex">
+          <input
+            v-model.number="monthlyLimit"
+            type="number"
+            placeholder="예: 1,000,000"
+            class="w-full border rounded-full px-[20px] py-[10px] text-[14px] bg-gray-50 shadow-sm focus:outline-none focus:ring-2 focus:ring-green-300"
+            style="top: 10px; right: -80px"
+          />
+          <button
+            @click="saveMonthlyLimit"
+            class="bg-[#169976] text-[white] px-[20px] py-[8px] rounded-full shadow-md absolute border-none"
+            style="top: 3px; right: -90px"
+          >
+            저장
+          </button>
+        </div>
+      </div>
+      <!-- 카테고리별 최대 금액 -->
+      <div
+        class="mb-[60px] w-[500px] translate-x-[-50px] translate-y-[-60px] text-left"
+      >
+        <!-- 문구 (개별 위치 이동) -->
+        <div class="translate-x-[0px] translate-y-[0px]">
+          <p class="font-semibold mb-[8px]">카테고리별 최대 금액</p>
         </div>
 
-        <!-- 닉네임 변경 -->
-        <div class="mb-8 px-6">
-          <p class="font-semibold mb-3">닉네임 변경</p>
-          <div class="flex gap-3">
-            <input
-              v-model="nickname"
-              type="text"
-              placeholder="닉네임을 입력하세요"
-              class="flex-1 border rounded-full px-6 py-3 text-sm"
-            />
-            <button
-              @click="saveNickname"
-              class="bg-green-400 text-white px-6 py-2 rounded-full hover:bg-green-500"
+        <!-- 드롭다운 + 입력창 + 버튼 (가로 정렬) -->
+        <div class="flex items-center gap-4 mt-[10px]">
+          <!-- 드롭다운 -->
+          <div class="translate-x-[0px] translate-y-[0px]">
+            <select
+              v-model="selectedCategory"
+              class="border rounded-full px-[16px] py-[8px] text-[14px] bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-green-300"
             >
-              저장
-            </button>
+              <option value="ok" disabled selected>카테고리 선택</option>
+              <option value="food">식비</option>
+              <option value="transport">교통비</option>
+              <option value="leisure">여가비</option>
+              <option value="shopping">쇼핑비</option>
+              <option value="living">생활비</option>
+            </select>
           </div>
-        </div>
 
-        <!-- 월별 최대 금액 설정 -->
-        <div class="px-6">
-          <p class="font-semibold mb-3">월별 최대 금액</p>
-          <div class="flex gap-3">
+          <!-- 입력창 -->
+          <div class="translate-x-[30px] translate-y-[0px]">
             <input
-              v-model.number="monthlyLimit"
-              type="number"
-              placeholder="예: 1000000"
-              class="flex-1 border rounded-full px-6 py-3 text-sm"
+              v-model="categoryLimit"
+              type="text"
+              placeholder="금액 입력"
+              class="w-[295px] border rounded-full px-[16px] py-[8px] text-[14px] bg-gray-50 shadow-sm focus:outline-none focus:ring-2 focus:ring-green-300"
             />
+          </div>
+
+          <!-- 저장 버튼 -->
+          <div class="translate-x-[50px] translate-y-[0px]">
             <button
-              @click="saveMonthlyLimit"
-              class="bg-green-400 text-white px-6 py-2 rounded-full hover:bg-green-500"
+              @click="saveCategoryLimit"
+              class="bg-[#169976] text-[white] w-[70px] py-[8px] text-sm rounded-full bg-green-400 text-white hover:bg-green-500 shadow-md border-none"
             >
               저장
             </button>
           </div>
         </div>
       </div>
-    </main>
+    </div>
   </div>
 </template>
 
@@ -88,6 +120,7 @@ import axios from 'axios';
 
 const nickname = ref('');
 const monthlyLimit = ref(null);
+const selectedCategory = ref('ok');
 
 const saveNickname = async () => {
   try {
@@ -113,7 +146,3 @@ const saveMonthlyLimit = async () => {
   }
 };
 </script>
-
-<style scoped>
-/* 필요 시 스타일 추가 */
-</style>
