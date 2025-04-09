@@ -1,99 +1,102 @@
 <template>
   <div
-    class="fixed m-[2rem] w-[calc(100%-18rem)] h-[40rem] inset-0 bg-black/50 backdrop-blur-sm flex items-center bg-[white] justify-center z-50"
+    class="modal-overlay fixed flex inset-0 items-center justify-center border border-[0.01rem] border-[#c3c3c3] rounded-[3rem] bg-[#ffffff] z-50"
     v-if="visible"
   >
-    <div
-      class="bg-white rounded-xl shadow-lg w-full max-w-4xl p-6 relative animate-fadeIn flex"
-    >
-      <!-- 닫기 버튼 -->
+    <div class="modal w-[70rem] h-[40rem] relative overflow-hidden">
       <button
-        class="absolute top-4 right-4 text-2xl text-gray-400 hover:text-gray-600 transition"
+        class="close-button absolute top-[2rem] right-[2rem]"
         @click="hideModal"
       >
-        &times;
+        X
       </button>
+      <div class="modal-content flex w-full h-full">
+        <!-- <slot></slot> -->
 
-      <!-- 왼쪽: 날짜 + 내역 리스트 -->
-      <div
-        class="w-1/2 pr-6 border-r border-gray-300 flex flex-col items-center"
-      >
-        <p class="text-xl font-semibold mb-4">
-          2025. 04. 13
-        </p>
-        <div
-          v-for="i in 4"
-          :key="i"
-          class="bg-[#1CDC9F] text-white rounded-md w-full max-w-[80%] px-4 py-2 mb-3 flex justify-between items-center"
-        >
-          <span>{{
-            i === 1 ? '지민이 월급리 내리기' : ''
-          }}</span>
-          <span v-if="i === 1">+100,000</span>
+        <!-- 왼쪽 영역 -->
+        <div class="w-1/2 p-[2rem]">
+          <h3 class="text-center">2024.04.09 (수)</h3>
         </div>
-      </div>
+        <!-- 세로선 -->
+        <div class="w-[0.05rem] h-[80%] bg-[#c3c3c3] self-center"></div>
 
-      <!-- 오른쪽: 입력 폼 -->
-      <div class="w-1/2 pl-6 flex flex-col justify-between">
-        <div class="space-y-4">
-          <!-- 카테고리 -->
-          <div>
-            <label class="font-semibold">카테고리</label>
-            <select
-              class="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+        <!-- 오른쪽 영역 -->
+        <div class="w-1/2 p-[2rem] flex flex-col justify-center">
+          <h3 class="flex self-center">수입 / 지출 내역 추가</h3>
+          <ul>
+            <li class="flex items-center justify-start gap-[1.5rem]">
+              <h4>카테고리</h4>
+              <div class="relative w-[20rem]">
+                <!-- 드롭 다운 버튼 -->
+                <button
+                  @click="dropOnOff"
+                  class="flex items-center justify-between p-[0.5rem] w-full h-[2rem] bg-transparent border border-[0.01rem] rounded-[0.5rem] shadow-none"
+                >
+                  {{ category }}
+                  <i class="fa-solid fa-caret-down" style="color: #222222"></i>
+                </button>
+                <!-- 드롭 다운 목록 -->
+                <ul
+                  v-if="dropOn"
+                  class="absolute top-full left-0 list-none text-left w-[20rem]"
+                >
+                  <li
+                    v-for="item in [
+                      '식비',
+                      '교통비',
+                      '주거비',
+                      '여가비',
+                      '기타',
+                    ]"
+                    :key="item"
+                    @click="
+                      selectCategory(item);
+                      dropOnOff();
+                    "
+                    class="block w-full bg-[#ffffff] hover:bg-gray-100 cursor-pointer"
+                  >
+                    {{ item }}
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="flex items-center justify-start gap-[1.5rem]">
+              <h4>금액</h4>
+              <input type="number" />
+            </li>
+            <li class="flex items-center justify-start gap-[1.5rem]">
+              <h4>내용</h4>
+              <input type="text" />
+            </li>
+            <li class="flex items-center justify-start gap-[1.5rem]">
+              <h4>지출</h4>
+              <input
+                type="radio"
+                name="type"
+                value="outcome"
+                class="w-[5rem] h-[5rem]"
+              />
+              <h4>수입</h4>
+              <input type="radio" name="type" value="income" />
+            </li>
+          </ul>
+          <div class="flex items-end justify-end mt-auto gap-[0.5rem]">
+            <button
+              class="w-[4rem] h-[2rem] border-none rounded-[0.5rem] shadow-non bg-[#169976] text-[#ffffff] text-[0.7rem]"
             >
-              <option disabled selected>선택</option>
-              <option>식비</option>
-              <option>교통</option>
-              <option>기타</option>
-            </select>
+              삭제
+            </button>
+            <button
+              class="w-[4rem] h-[2rem] border-none rounded-[0.5rem] shadow-non bg-[#169976] text-[#ffffff] text-[0.7rem]"
+            >
+              수정
+            </button>
+            <button
+              class="w-[4rem] h-[2rem] border-none rounded-[0.5rem] shadow-non bg-[#169976] text-[#ffffff] text-[0.7rem]"
+            >
+              추가
+            </button>
           </div>
-
-          <!-- 금액 -->
-          <div>
-            <label class="font-semibold">금액</label>
-            <input
-              type="number"
-              class="w-full border border-gray-300 rounded px-3 py-2 mt-1"
-              placeholder="금액 입력"
-            />
-          </div>
-
-          <!-- 내용 -->
-          <div>
-            <label class="font-semibold">내용</label>
-            <input
-              type="text"
-              class="w-full border border-gray-300 rounded px-3 py-2 mt-1"
-              placeholder="내용 입력"
-            />
-          </div>
-
-          <!-- 지출/수입 체크박스 -->
-          <div class="flex gap-6 mt-2">
-            <label class="flex items-center gap-2">
-              <input type="checkbox" />
-              <span>지출</span>
-            </label>
-            <label class="flex items-center gap-2">
-              <input type="checkbox" />
-              <span>수입</span>
-            </label>
-          </div>
-        </div>
-
-        <!-- 하단 버튼 -->
-        <div class="mt-6 flex justify-end gap-3">
-          <button
-            class="px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300 transition"
-          >
-            취소
-          </button>
-          <button
-            class="px-4 py-2 rounded bg-[#1CDC9F] text-white hover:bg-[#17b88a] transition"
-          >
-            저장
-          </button>
         </div>
       </div>
     </div>
@@ -101,28 +104,22 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useModalStore } from '@/stores/modalVisible';
 
 const modalStore = useModalStore();
 const { showModal, hideModal } = modalStore;
 
 const visible = computed(() => modalStore.isModalVisible);
+const dropOn = ref(false);
+const category = ref('식비');
+
+function dropOnOff() {
+  dropOn.value = !dropOn.value;
+}
+function selectCategory(c) {
+  return (category.value = c);
+}
 </script>
 
-<style scoped>
-@keyframes fadeIn {
-  0% {
-    transform: translateY(-10px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.2s ease-out;
-}
-</style>
+<style scoped></style>
