@@ -4,10 +4,10 @@
     v-if="visible"
   >
     <div
-      class="modal w-[70rem] h-[40rem] relative overflow-hidden"
+      class="modal w-[65rem] h-[35rem] relative overflow-hidden"
     >
       <button
-        class="close-button absolute top-[2rem] right-[2rem]"
+        class="close-button absolute top-[2rem] right-[2rem] w-[2rem] h-[1rem]"
         @click="hideModal"
       >
         X
@@ -66,7 +66,7 @@
                       selectCategory(item);
                       dropOnOff();
                     "
-                    class="block w-full bg-[#ffffff] hover:bg-gray-100 cursor-pointer"
+                    class="block w-full px-[0.1rem] py-[0.1rem] bg-[#ffffff] hover:bg-gray-100 cursor-pointer"
                   >
                     {{ item }}
                   </li>
@@ -83,7 +83,10 @@
               class="flex items-center justify-start gap-[1.5rem]"
             >
               <h4>내용</h4>
-              <input type="text" />
+              <textarea
+                maxlength="20"
+                class="w-[20rem] h-[3rem] resize-none border border-[0.01rem] border-[#c3c3c3]"
+              ></textarea>
             </li>
             <li
               class="flex items-center justify-start gap-[1.5rem]"

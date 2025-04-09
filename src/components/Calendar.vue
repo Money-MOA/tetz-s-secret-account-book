@@ -1,8 +1,8 @@
 <template>
-  <div class="flex items-center">
+  <div>
     <Modal :visible="isModalVisible"></Modal>
     <div
-      class="relative w-[calc(100%-4rem)] bg-white rounded-[1rem] shadow-md overflow-hidden z-10 border-[#e0e0e0] mx-auto"
+      class="relative w-[calc(100%-3rem)] lg:ml-60 bg-white rounded-[1rem] shadow-md overflow-hidden z-10 border-[#e0e0e0] mx-auto"
     >
       <!-- 달력 헤더 -->
       <div
@@ -34,12 +34,12 @@
 
       <!-- 요일 -->
       <div
-        class="h-2rem grid grid-cols-7 gap-[4px] bg-[#f0fdfa] text-[14px] font-semibold text-[#1CDC9F] px-[16px]"
+        class="h-[2.5rem] grid grid-cols-7 gap-[4px] bg-[#f0fdfa] text-[14px] font-semibold text-[#1CDC9F] px-[16px]"
       >
         <div
           v-for="day in daysOfWeek"
           :key="day"
-          class="h-full py-[8px] text-center bg-[none] rounded"
+          class="h-full py-[8px] text-center bg-white rounded"
         >
           {{ day }}
         </div>
@@ -53,7 +53,7 @@
         <div
           v-for="n in startDay"
           :key="'blank-' + n"
-          class="h-[7rem]"
+          class="h-[100px]"
         ></div>
 
         <!-- 날짜들 -->
@@ -61,7 +61,7 @@
           v-for="day in daysInMonth"
           :key="day"
           @click="showModal"
-          class="h-[7rem] bg-white rounded-[1rem] shadow-sm flex flex-col justify-start p-[16px] text-gray-800 cursor-pointer hover:bg-[#E0FAF4] transition border border-[#c3c3c3]"
+          class="h-[4.2rem] bg-white rounded-[1rem] shadow-sm flex flex-col justify-start p-[16px] text-gray-800 cursor-pointer hover:bg-[#E0FAF4] transition border border-[#c3c3c3]"
         >
           <span
             class="font-semibold text-[18px] leading-none mb-[6px]"
