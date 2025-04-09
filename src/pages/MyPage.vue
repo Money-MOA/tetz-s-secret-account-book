@@ -38,7 +38,7 @@
             class="bg-[#169976] text-[white] px-[20px] py-[8px] rounded-full shadow-md absolute border-none"
             style="top: 3px; right: -90px"
           >
-            저장
+            변경
           </button>
         </div>
       </div>
