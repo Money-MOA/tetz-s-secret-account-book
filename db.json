@@ -80,10 +80,250 @@
     {
       "id": "1",
       "userId": "1",
+      "date": "2025-01-01",
+      "income": 0,
+      "outcome": 15000,
+      "balance": -15000
+    },
+    {
+      "id": "2",
+      "userId": "1",
+      "date": "2025-01-02",
+      "income": 0,
+      "outcome": 22000,
+      "balance": -22000
+    },
+    {
+      "id": "3",
+      "userId": "1",
+      "date": "2025-01-03",
+      "income": 0,
+      "outcome": 10000,
+      "balance": -10000
+    },
+    {
+      "id": "4",
+      "userId": "1",
+      "date": "2025-01-04",
+      "income": 0,
+      "outcome": 30000,
+      "balance": -30000
+    },
+    {
+      "id": "5",
+      "userId": "1",
       "date": "2025-01-05",
-      "income": 106500,
+      "income": 0,
       "outcome": 50600,
-      "balance": 55800
+      "balance": -50600
+    },
+    {
+      "id": "6",
+      "userId": "1",
+      "date": "2025-01-06",
+      "income": 120000,
+      "outcome": 25000,
+      "balance": 95000
+    },
+    {
+      "id": "7",
+      "userId": "1",
+      "date": "2025-01-07",
+      "income": 0,
+      "outcome": 18000,
+      "balance": -18000
+    },
+    {
+      "id": "8",
+      "userId": "1",
+      "date": "2025-01-08",
+      "income": 0,
+      "outcome": 10000,
+      "balance": -10000
+    },
+    {
+      "id": "9",
+      "userId": "1",
+      "date": "2025-01-09",
+      "income": 0,
+      "outcome": 35000,
+      "balance": -35000
+    },
+    {
+      "id": "10",
+      "userId": "1",
+      "date": "2025-01-10",
+      "income": 0,
+      "outcome": 16000,
+      "balance": -16000
+    },
+    {
+      "id": "11",
+      "userId": "1",
+      "date": "2025-01-11",
+      "income": 0,
+      "outcome": 12000,
+      "balance": -12000
+    },
+    {
+      "id": "12",
+      "userId": "1",
+      "date": "2025-01-12",
+      "income": 0,
+      "outcome": 8000,
+      "balance": -8000
+    },
+    {
+      "id": "13",
+      "userId": "1",
+      "date": "2025-01-13",
+      "income": 90000,
+      "outcome": 27000,
+      "balance": 63000
+    },
+    {
+      "id": "14",
+      "userId": "1",
+      "date": "2025-01-14",
+      "income": 0,
+      "outcome": 19000,
+      "balance": -19000
+    },
+    {
+      "id": "15",
+      "userId": "1",
+      "date": "2025-01-15",
+      "income": 0,
+      "outcome": 23000,
+      "balance": -23000
+    },
+    {
+      "id": "16",
+      "userId": "1",
+      "date": "2025-01-16",
+      "income": 0,
+      "outcome": 17000,
+      "balance": -17000
+    },
+    {
+      "id": "17",
+      "userId": "1",
+      "date": "2025-01-17",
+      "income": 0,
+      "outcome": 45000,
+      "balance": -45000
+    },
+    {
+      "id": "18",
+      "userId": "1",
+      "date": "2025-01-18",
+      "income": 0,
+      "outcome": 6000,
+      "balance": -6000
+    },
+    {
+      "id": "19",
+      "userId": "1",
+      "date": "2025-01-19",
+      "income": 0,
+      "outcome": 9000,
+      "balance": -9000
+    },
+    {
+      "id": "20",
+      "userId": "1",
+      "date": "2025-01-20",
+      "income": 150000,
+      "outcome": 30000,
+      "balance": 120000
+    },
+    {
+      "id": "21",
+      "userId": "1",
+      "date": "2025-01-21",
+      "income": 0,
+      "outcome": 26000,
+      "balance": -26000
+    },
+    {
+      "id": "22",
+      "userId": "1",
+      "date": "2025-01-22",
+      "income": 0,
+      "outcome": 18000,
+      "balance": -18000
+    },
+    {
+      "id": "23",
+      "userId": "1",
+      "date": "2025-01-23",
+      "income": 0,
+      "outcome": 22000,
+      "balance": -22000
+    },
+    {
+      "id": "24",
+      "userId": "1",
+      "date": "2025-01-24",
+      "income": 0,
+      "outcome": 16000,
+      "balance": -16000
+    },
+    {
+      "id": "25",
+      "userId": "1",
+      "date": "2025-01-25",
+      "income": 0,
+      "outcome": 20000,
+      "balance": -20000
+    },
+    {
+      "id": "26",
+      "userId": "1",
+      "date": "2025-01-26",
+      "income": 0,
+      "outcome": 14000,
+      "balance": -14000
+    },
+    {
+      "id": "27",
+      "userId": "1",
+      "date": "2025-01-27",
+      "income": 100000,
+      "outcome": 31000,
+      "balance": 69000
+    },
+    {
+      "id": "28",
+      "userId": "1",
+      "date": "2025-01-28",
+      "income": 0,
+      "outcome": 17000,
+      "balance": -17000
+    },
+    {
+      "id": "29",
+      "userId": "1",
+      "date": "2025-01-29",
+      "income": 0,
+      "outcome": 9000,
+      "balance": -9000
+    },
+    {
+      "id": "30",
+      "userId": "1",
+      "date": "2025-01-30",
+      "income": 0,
+      "outcome": 12000,
+      "balance": -12000
+    },
+    {
+      "id": "31",
+      "userId": "1",
+      "date": "2025-01-31",
+      "income": 0,
+      "outcome": 27000,
+      "balance": -27000
     }
   ]
 }
