@@ -6,7 +6,7 @@
       class="flex flex-col gap-[2rem] mt-[2rem] ml-[0.7rem]"
     >
       <RouterLink
-        @click.prevent="handleMenuClick('/')"
+        @click.prevent="handleMenuClick('/main')"
         to="/"
         class="flex items-center gap-[0.8rem] font-semibold bg-white border-0 no-underline hover:text-[#1CDC9F] transition"
       >
@@ -26,7 +26,7 @@
               : 'text-[#222]'
           "
         >
-          Home
+          Main
         </span>
       </RouterLink>
 

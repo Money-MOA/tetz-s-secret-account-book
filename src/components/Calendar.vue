@@ -6,7 +6,7 @@
     >
       <!-- 달력 헤더 -->
       <div
-        class="flex items-center justify-center px-[32px] py-[24px] bg-[#E0FAF4] border-b border-[#1CDC9F]"
+        class="flex items-center justify-center px-[32px] py-[24px] bg-[#E0FAF4] border-b border-[#169976]"
       >
         <div class="flex justify-center items-center gap-4">
           <button
@@ -36,12 +36,12 @@
 
       <!-- 요일 -->
       <div
-        class="h-[2.5rem] grid grid-cols-7 gap-[4px] bg-[#169976] text-[14px] font-semibold text-[#1CDC9F] px-[16px]"
+        class="h-[2.5rem] grid grid-cols-7 gap-[4px] bg-[#E0FAF4] text-[14px] font-semibold text-[#169976] px-[16px]"
       >
         <div
           v-for="day in daysOfWeek"
           :key="day"
-          class="h-full py-[8px] text-center bg-[#169976] rounded"
+          class="h-full py-[8px] text-center bg-[#E0FAF4] rounded"
         >
           {{ day }}
         </div>
@@ -63,23 +63,34 @@
           v-for="day in daysInMonth"
           :key="day"
           @click="test"
-          class="h-[7rem] bg-white rounded-[1rem] shadow-sm flex flex-col justify-start p-[16px] text-gray-800 cursor-pointer hover:bg-[#E0FAF4] transition border border-[#c3c3c3]"
+          class="h-[7rem] bg-white rounded-[1rem] shadow-sm flex flex-col justify-start p-[8px] text-gray-800 cursor-pointer hover:bg-[#E0FAF4] transition border border-[#c3c3c3]"
         >
           <span
-            class="font-semibold text-[18px] leading-none mb-[6px]"
+            class="font-semibold text-[16px] leading-none mb-[16px]"
           >
             {{ day }}
           </span>
+
+          <!-- 수입 -->
           <div
-            v-if="getSchedulesForDay(day).length"
-            class="text-[12px] text-gray-500 flex items-center gap-[4px]"
+            v-if="getExpenseForDay(day)?.income"
+            class="text-[#2C66E4] text-[1rem] truncate"
           >
-            <span
-              class="w-[6px] h-[6px] rounded-full bg-[#1CDC9F] inline-block"
-            ></span>
-            <span class="truncate">
-              {{ getSchedulesForDay(day)[0].title }}
-            </span>
+            +{{
+              getExpenseForDay(day).income.toLocaleString()
+            }}원
+          </div>
+
+          <!-- 지출 -->
+          <div
+            v-if="getExpenseForDay(day)?.outcome"
+            class="text-[#EF5350] text-[1rem] truncate"
+          >
+            -{{
+              getExpenseForDay(
+                day
+              ).outcome.toLocaleString()
+            }}원
           </div>
         </div>
       </div>
@@ -88,7 +99,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import Modal from './Modal.vue';
 import { useModalStore } from '@/stores/modalVisible';
 
@@ -97,29 +108,21 @@ const { showModal } = modalStore;
 const isModalVisible = computed(
   () => modalStore.isModalVisible
 );
+
 const test = () => {
-  console.log('클릭됨'); // ← 이거 나와야 함
+  console.log('클릭됨');
   showModal();
   console.log(isModalVisible.value);
 };
 
-// 더미 일정 데이터
-const schedules = ref([
-  {
-    id: 1,
-    userId: 1,
-    date: '2025-04-08',
-    title: 'Vue 공부',
-    description: '컴포지션 API 연습',
-  },
-  {
-    id: 2,
-    userId: 1,
-    date: '2025-04-12',
-    title: '스터디',
-    description: 'CS 스터디',
-  },
-]);
+// 날짜 상태
+const currentDate = ref(new Date());
+const currentYear = computed(() =>
+  currentDate.value.getFullYear()
+);
+const currentMonth = computed(() =>
+  currentDate.value.getMonth()
+);
 
 const daysOfWeek = [
   '월',
@@ -130,14 +133,6 @@ const daysOfWeek = [
   '토',
   '일',
 ];
-
-const currentDate = ref(new Date());
-const currentYear = computed(() =>
-  currentDate.value.getFullYear()
-);
-const currentMonth = computed(() =>
-  currentDate.value.getMonth()
-);
 
 const startDay = computed(() => {
   const date = new Date(
@@ -166,9 +161,28 @@ const formatDate = (day) => {
   return `${currentYear.value}-${mm}-${dd}`;
 };
 
-const getSchedulesForDay = (day) => {
+// API로 불러온 dailyExpense 저장
+const dailyExpenses = ref([]);
+
+onMounted(async () => {
+  try {
+    const res = await fetch(
+      'http://localhost:3000/dailyExpense'
+    );
+    dailyExpenses.value = await res.json();
+  } catch (error) {
+    console.error(
+      '지출 데이터를 불러오는 데 실패했습니다.',
+      error
+    );
+  }
+});
+
+const getExpenseForDay = (day) => {
   const dateStr = formatDate(day);
-  return schedules.value.filter((s) => s.date === dateStr);
+  return dailyExpenses.value.find(
+    (d) => d.date === dateStr
+  );
 };
 
 const prevMonth = () => {
