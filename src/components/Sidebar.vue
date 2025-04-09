@@ -1,11 +1,12 @@
 <template>
   <aside
-    class="fixed top-[100px] left-0 w-[220px] h-[calc(100vh-100px)] bg-white border-r border-[#c3c3c3] px-4 py-6"
+    class="fixed top-[100px] left-0 w-[200px] h-[calc(100vh-100px)] bg-white border-r border-[#c3c3c3] px-4 py-6"
   >
     <nav
-      class="flex flex-col gap-[2rem] mt-[2rem] ml-[1rem]"
+      class="flex flex-col gap-[2rem] mt-[2rem] ml-[0.7rem]"
     >
       <RouterLink
+        @click.prevent="handleMenuClick('/')"
         to="/"
         class="flex items-center gap-[0.8rem] font-semibold bg-white border-0 no-underline hover:text-[#1CDC9F] transition"
       >
@@ -27,6 +28,7 @@
 
       <RouterLink
         to="/calendar"
+        @click.prevent="handleMenuClick('/calendar')"
         class="flex items-center gap-[0.8rem] font-semibold bg-white border-0 no-underline hover:text-[#1CDC9F] transition"
       >
         <i
@@ -50,6 +52,7 @@
       </RouterLink>
 
       <RouterLink
+        @click.prevent="handleMenuClick('/graph')"
         to="/graph"
         class="flex items-center gap-[0.8rem] font-semibold bg-white border-0 no-underline hover:text-[#1CDC9F] transition"
       >
@@ -74,6 +77,7 @@
       </RouterLink>
 
       <RouterLink
+        @click.prevent="handleMenuClick('/user')"
         to="/user"
         class="flex items-center gap-[0.8rem] font-semibold bg-white border-0 no-underline hover:text-[#1CDC9F] transition"
       >
@@ -101,8 +105,34 @@
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+import { computed, watch } from 'vue';
 
 const route = useRoute();
-const isActive = (path) => route.path === path;
+const router = useRouter();
+
+const currentPath = computed(() => route.path);
+const isActive = (path) => currentPath.value === path;
+
+// 👇 클릭 시 현재 경로와 동일하면 강제로 "재로드 효과"
+const handleMenuClick = (path) => {
+  if (route.path === path) {
+    console.log(`[Sidebar] 같은 경로 클릭됨 → ${path}`);
+    // 👉 여기서 원하면 store 업데이트, 모달 오픈, 스크롤 이동 등 가능
+    window.dispatchEvent(
+      new CustomEvent('refresh-page', { detail: path })
+    );
+  } else {
+    router.push(path);
+  }
+};
+
+// ✅ 다른 컴포넌트에서 반응형으로 감지할 수 있도록 이벤트 전송
+watch(currentPath, (newVal, oldVal) => {
+  if (newVal === oldVal) {
+    window.dispatchEvent(
+      new CustomEvent('refresh-page', { detail: newVal })
+    );
+  }
+});
 </script>
