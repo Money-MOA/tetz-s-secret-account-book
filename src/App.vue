@@ -33,7 +33,6 @@ import Sidebar from './components/Sidebar.vue';
 import Modal from './components/Modal.vue';
 import { useModalStore } from '@/stores/modalVisible';
 
-<<<<<<< HEAD
 const modalStore = useModalStore();
 const isModalVisible = computed(
   () => modalStore.isModalVisible
@@ -46,14 +45,6 @@ watch(isModalVisible, (visible) => {
     document.body.classList.remove('modal-blur');
   }
 });
-=======
-// 여긴 모달 열고 닫고 하는거
-const modalStore = useModalStore();
-const { showModal } = modalStore;
-const isModalVisible = computed(
-  () => modalStore.isModalVisible
-);
->>>>>>> c113517 (feat : header에 bootstrap추가, sidebar 라우터 추가)
 
 const route = useRoute();
 const hideSidebarRoutes = ['/login', '/signup', '/'];
