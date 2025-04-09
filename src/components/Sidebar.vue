@@ -1,12 +1,15 @@
 <template>
   <aside
-    class="fixed top-[100px] left-0 w-[200px] h-[calc(100vh-100px)] bg-white border-r border-[#c3c3c3] px-4 py-6"
+    class="fixed top-[100px] left-0 w-[220px] h-[calc(100vh-100px)] bg-white border-r border-[#c3c3c3] px-4 py-6"
   >
     <nav
       class="flex flex-col gap-[2rem] mt-[2rem] ml-[0.7rem]"
     >
       <RouterLink
+<<<<<<< HEAD
         @click.prevent="handleMenuClick('/')"
+=======
+>>>>>>> c113517 (feat : header에 bootstrap추가, sidebar 라우터 추가)
         to="/"
         class="flex items-center gap-[0.8rem] font-semibold bg-white border-0 no-underline hover:text-[#1CDC9F] transition"
       >
@@ -28,7 +31,10 @@
 
       <RouterLink
         to="/calendar"
+<<<<<<< HEAD
         @click.prevent="handleMenuClick('/calendar')"
+=======
+>>>>>>> c113517 (feat : header에 bootstrap추가, sidebar 라우터 추가)
         class="flex items-center gap-[0.8rem] font-semibold bg-white border-0 no-underline hover:text-[#1CDC9F] transition"
       >
         <i
@@ -52,7 +58,10 @@
       </RouterLink>
 
       <RouterLink
+<<<<<<< HEAD
         @click.prevent="handleMenuClick('/graph')"
+=======
+>>>>>>> c113517 (feat : header에 bootstrap추가, sidebar 라우터 추가)
         to="/graph"
         class="flex items-center gap-[0.8rem] font-semibold bg-white border-0 no-underline hover:text-[#1CDC9F] transition"
       >
@@ -77,7 +86,10 @@
       </RouterLink>
 
       <RouterLink
+<<<<<<< HEAD
         @click.prevent="handleMenuClick('/user')"
+=======
+>>>>>>> c113517 (feat : header에 bootstrap추가, sidebar 라우터 추가)
         to="/user"
         class="flex items-center gap-[0.8rem] font-semibold bg-white border-0 no-underline hover:text-[#1CDC9F] transition"
       >
@@ -105,6 +117,7 @@
 </template>
 
 <script setup>
+<<<<<<< HEAD
 import { useRoute, useRouter } from 'vue-router';
 import { computed, watch } from 'vue';
 
@@ -135,4 +148,10 @@ watch(currentPath, (newVal, oldVal) => {
     );
   }
 });
+=======
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+const isActive = (path) => route.path === path;
+>>>>>>> c113517 (feat : header에 bootstrap추가, sidebar 라우터 추가)
 </script>
