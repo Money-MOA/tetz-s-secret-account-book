@@ -15,16 +15,24 @@
 
     <!-- 비디오 위 텍스트 -->
     <article
-      class="text absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center"
+      class="text absolute top-1/2 left-1/3 transform -translate-x-1/2 -translate-y-1/2 text-left"
     >
-      <p class="text-4xl font-bold leading-tight">
+      <p
+        class="text-[5rem] text-[white] leading-tight font-bold righteous-regular"
+      >
         MOA <br />
       </p>
-      <p>모두가 자산을 모을 때까지 MOA와 함께하세요</p>
+      <p
+        class="text-[2rem] text-[white] leading-tight font-bold righteous-regular"
+      >
+        모두가 자산을 모을 때까지 MOA와 함께하세요
+      </p>
     </article>
   </figure>
 </template>
 
-<script setup></script>
+<script setup>
+import 'bootstrap/dist/css/bootstrap.min.css';
+</script>
 
 <style lang="scss" scoped></style>

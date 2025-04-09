@@ -2,10 +2,14 @@
   <header
     className="fixed top-0 left-1/2 -translate-x-1/2 w-full h-[100px] bg-[white] z-[1000] flex items-center justify-center  border-[#c3c3c3] border-b-[1px]"
   >
-    <div class="m-[2rem] w-full max-w-7xl flex items-center justify-between">
+    <div
+      class="m-[2rem] w-full max-w-7xl flex items-center justify-between"
+    >
       <!-- 왼쪽: 로고 -->
       <RouterLink to="/main" class="no-underline">
-        <h1 class="text-[3rem] text-[#222222] font-bold righteous-regular">
+        <h1
+          class="text-[3rem] text-[#222222] font-bold righteous-regular"
+        >
           MOA
         </h1>
       </RouterLink>
@@ -15,14 +19,18 @@
         <button
           class="text-[1rem] px-[0.75rem] py-[0.5rem] rounded-[0.5rem] text-[black] bg-[gray-500 transition border-[0]"
         >
-          <RouterLink to="/login" class="no-underline text-[#222222]"
+          <RouterLink
+            to="/login"
+            class="no-underline text-[#222222]"
             >로그인</RouterLink
           >
         </button>
         <button
           class="text-[1rem] px-[0.5rem] py-[0.5rem] rounded-[0.5rem] text-[white] bg-[#1cdc9f] transition border-[0]"
         >
-          <RouterLink to="/signup" class="no-underline text-[#222222]"
+          <RouterLink
+            to="/signup"
+            class="no-underline text-[#222222]"
             >회원가입</RouterLink
           >
         </button>
