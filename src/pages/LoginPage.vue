@@ -10,16 +10,19 @@
         <input
           type="text"
           placeholder="아이디를 입력해주세요."
+          v-model.trim="userId"
           class="pl-[0.5rem] w-[25rem] h-[2.2rem] mb-[0.5rem] text-[1rem] border border-[0.1rem] border-[#c3c3c3] rounded-[0.5rem] self-center"
         />
         <br />
         <input
           type="password"
           placeholder="비밀번호를 입력해주세요."
+          v-model.trim="password"
           class="pl-[0.5rem] w-[25rem] h-[2.2rem] mb-[3rem] text-[1rem] border border-[0.1rem] border-[#c3c3c3] rounded-[0.5rem] self-center"
         />
       </div>
       <button
+        @click="signup"
         class="w-[8rem] h-[2.5rem] bg-[#169976] text-[#ffffff] text-[1rem] border-none shadow-none"
       >
         로그인
@@ -28,6 +31,34 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import axios from 'axios';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const BASE_URL = '/api';
+
+const userId = ref('');
+const password = ref('');
+
+async function signup() {
+  try {
+    const userUrl = BASE_URL + '/user';
+    const success = await axios.get(
+      `${BASE_URL}/user?userId=${userId.value}&password=${password.value}`
+    );
+    console.log(success.data);
+    if (success.data.length > 0) {
+      localStorage.setItem('auth', 'true');
+      return router.push({ name: 'main' });
+    } else {
+      alert('아이디 / 비밀번호가 틀렸습니다.');
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+</script>
 
 <style lang="scss" scoped></style>
