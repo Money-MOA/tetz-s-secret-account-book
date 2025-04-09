@@ -13,23 +13,27 @@
         이름 <br />
         <input
           type="text"
+          v-model.trim="nickname"
           class="pl-[0.5rem] w-[25rem] h-[2.2rem] mb-[0.5rem] text-[1rem] border border-[0.1rem] border-[#c3c3c3] rounded-full self-center"
         />
         <br />
         ID <br />
         <input
           type="text"
+          v-model.trim="userId"
           class="pl-[0.5rem] w-[25rem] h-[2.2rem] mb-[0.5rem] text-[1rem] border border-[0.1rem] border-[#c3c3c3] rounded-full self-center"
         />
         <br />
         PASSWORD <br />
         <input
           type="password"
+          v-model.trim="password"
           class="pl-[0.5rem] w-[25rem] h-[2.2rem] mb-[1rem] text-[1rem] border border-[0.1rem] border-[#c3c3c3] rounded-full self-center"
         />
       </div>
       <div class="flex justify-end">
         <button
+          @click="signup"
           class="w-[5rem] h-[2rem] bg-[#169976] text-[#ffffff] text-[0.7rem] rounded-full border-none shadow-none"
         >
           가입
@@ -39,6 +43,45 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import axios from 'axios';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const BASE_URL = '/api';
+
+const nickname = ref('');
+const userId = ref('');
+const password = ref('');
+
+async function signup() {
+  try {
+    const userUrl = BASE_URL + '/user';
+    // 회원가입 유저 아이디
+    const signupData = {
+      userId: userId.value,
+      password: password.value,
+      nickname: nickname.value,
+      hopeExpense: 0,
+      plannedMonthlyExpenseByCategory: [
+        { category: '식비', amount: 0 },
+        { category: '교통비', amount: 0 },
+        { category: '주거비', amount: 0 },
+        { category: '여가비', amount: 0 },
+        { category: '의료비', amount: 0 },
+        { category: '문화비', amount: 0 },
+        { category: '교육비', amount: 0 },
+        { category: '기타', amount: 0 },
+      ],
+    };
+    const signupRes = await axios.post(userUrl, signupData);
+    console.log(signupRes);
+    router.push({ name: 'main' });
+  } catch (e) {
+    console.error(e);
+  }
+}
+</script>
 
 <style lang="scss" scoped></style>
