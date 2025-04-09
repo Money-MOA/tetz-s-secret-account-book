@@ -29,7 +29,8 @@ const router = createRouter({
     {
       path: '/expenseGraph',
       name: 'expenseGraph',
-      component: () => import('../pages/ExpenseGraphPage.vue'),
+      component: () =>
+        import('../pages/ExpenseGraphPage.vue'),
     },
     {
       path: '/calendar',

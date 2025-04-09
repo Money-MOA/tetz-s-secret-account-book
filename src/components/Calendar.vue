@@ -6,40 +6,42 @@
     >
       <!-- 달력 헤더 -->
       <div
-        class="flex items-center justify-between px-[32px] py-[24px] bg-[#E0FAF4] border-b border-[#1CDC9F]"
+        class="flex items-center justify-center px-[32px] py-[24px] bg-[#E0FAF4] border-b border-[#1CDC9F]"
       >
-        <button
-          @click="prevMonth"
-          class="text-[24px] text-[#1CDC9F] hover:text-black transition border-none bg-[#E0FAF4]"
-        >
-          &lt;
-        </button>
-        <h2
-          class="text-[20px] font-bold text-[#1CDC9F] tracking-wide"
-        >
-          {{ currentYear }}
-          {{
-            currentDate.toLocaleString('default', {
-              month: 'long',
-            })
-          }}
-        </h2>
-        <button
-          @click="nextMonth"
-          class="text-[24px] text-[#1CDC9F] hover:text-black transition bg-[#E0FAF4] border-none"
-        >
-          &gt;
-        </button>
+        <div class="flex justify-center items-center gap-4">
+          <button
+            @click="prevMonth"
+            class="font-[bold] text-[24px] text-[#169976] hover:text-black transition border-none bg-[#E0FAF4]"
+          >
+            &lt;
+          </button>
+          <h2
+            class="text-[20px] font-bold text-[#169976] tracking-wide mt-[7px]"
+          >
+            {{ currentYear }}
+            {{
+              currentDate.toLocaleString('default', {
+                month: 'long',
+              })
+            }}
+          </h2>
+          <button
+            @click="nextMonth"
+            class="font-[bold] text-[24px] text-[#169976] hover:text-black transition border-none bg-[#E0FAF4]"
+          >
+            &gt;
+          </button>
+        </div>
       </div>
 
       <!-- 요일 -->
       <div
-        class="h-[2.5rem] grid grid-cols-7 gap-[4px] bg-[#f0fdfa] text-[14px] font-semibold text-[#1CDC9F] px-[16px]"
+        class="h-[2.5rem] grid grid-cols-7 gap-[4px] bg-[#169976] text-[14px] font-semibold text-[#1CDC9F] px-[16px]"
       >
         <div
           v-for="day in daysOfWeek"
           :key="day"
-          class="h-full py-[8px] text-center bg-white rounded"
+          class="h-full py-[8px] text-center bg-[#169976] rounded"
         >
           {{ day }}
         </div>
@@ -61,7 +63,7 @@
           v-for="day in daysInMonth"
           :key="day"
           @click="test"
-          class="h-[4.2rem] bg-white rounded-[1rem] shadow-sm flex flex-col justify-start p-[16px] text-gray-800 cursor-pointer hover:bg-[#E0FAF4] transition border border-[#c3c3c3]"
+          class="h-[7rem] bg-white rounded-[1rem] shadow-sm flex flex-col justify-start p-[16px] text-gray-800 cursor-pointer hover:bg-[#E0FAF4] transition border border-[#c3c3c3]"
         >
           <span
             class="font-semibold text-[18px] leading-none mb-[6px]"

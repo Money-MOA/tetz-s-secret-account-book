@@ -13,13 +13,17 @@
         <i
           class="fas fa-home text-[1.5rem] leading-none"
           :class="
-            isActive('/') ? 'text-[#1CDC9F]' : 'text-[#222]'
+            isActive('/main')
+              ? 'text-[#1CDC9F]'
+              : 'text-[#222]'
           "
         ></i>
         <span
           class="text-[1.7rem] leading-none"
           :class="
-            isActive('/') ? 'text-[#1CDC9F]' : 'text-[#222]'
+            isActive('/main')
+              ? 'text-[#1CDC9F]'
+              : 'text-[#222]'
           "
         >
           Home
