@@ -52,14 +52,14 @@
       </RouterLink>
 
       <RouterLink
-        @click.prevent="handleMenuClick('/graph')"
+        @click.prevent="handleMenuClick('/expenseGraph')"
         to="/graph"
         class="flex items-center gap-[0.8rem] font-semibold bg-white border-0 no-underline hover:text-[#1CDC9F] transition"
       >
         <i
           class="fas fa-chart-bar text-[1.5rem] leading-none"
           :class="
-            isActive('/graph')
+            isActive('/expenseGraph')
               ? 'text-[#1CDC9F]'
               : 'text-[#222]'
           "
@@ -67,7 +67,7 @@
         <span
           class="text-[1.7rem] leading-none"
           :class="
-            isActive('/graph')
+            isActive('/expenseGraph')
               ? 'text-[#1CDC9F]'
               : 'text-[#222]'
           "
@@ -77,14 +77,14 @@
       </RouterLink>
 
       <RouterLink
-        @click.prevent="handleMenuClick('/user')"
+        @click.prevent="handleMenuClick('/my')"
         to="/user"
         class="flex items-center gap-[0.8rem] font-semibold bg-white border-0 no-underline hover:text-[#1CDC9F] transition"
       >
         <i
           class="fas fa-user text-[1.5rem] leading-none"
           :class="
-            isActive('/user')
+            isActive('/my')
               ? 'text-[#1CDC9F]'
               : 'text-[#222]'
           "
@@ -92,7 +92,7 @@
         <span
           class="text-[1.7rem] leading-none"
           :class="
-            isActive('/user')
+            isActive('/my')
               ? 'text-[#1CDC9F]'
               : 'text-[#222]'
           "

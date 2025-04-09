@@ -3,7 +3,9 @@
     class="modal-overlay fixed flex inset-0 items-center justify-center border border-[0.01rem] border-[#c3c3c3] rounded-[3rem] bg-[#ffffff] z-50"
     v-if="visible"
   >
-    <div class="modal w-[70rem] h-[40rem] relative overflow-hidden">
+    <div
+      class="modal w-[70rem] h-[40rem] relative overflow-hidden"
+    >
       <button
         class="close-button absolute top-[2rem] right-[2rem]"
         @click="hideModal"
@@ -18,13 +20,21 @@
           <h3 class="text-center">2024.04.09 (수)</h3>
         </div>
         <!-- 세로선 -->
-        <div class="w-[0.05rem] h-[80%] bg-[#c3c3c3] self-center"></div>
+        <div
+          class="w-[0.05rem] h-[80%] bg-[#c3c3c3] self-center"
+        ></div>
 
         <!-- 오른쪽 영역 -->
-        <div class="w-1/2 p-[2rem] flex flex-col justify-center">
-          <h3 class="flex self-center">수입 / 지출 내역 추가</h3>
+        <div
+          class="w-1/2 p-[2rem] flex flex-col justify-center"
+        >
+          <h3 class="flex self-center">
+            수입 / 지출 내역 추가
+          </h3>
           <ul>
-            <li class="flex items-center justify-start gap-[1.5rem]">
+            <li
+              class="flex items-center justify-start gap-[1.5rem]"
+            >
               <h4>카테고리</h4>
               <div class="relative w-[20rem]">
                 <!-- 드롭 다운 버튼 -->
@@ -33,7 +43,10 @@
                   class="flex items-center justify-between p-[0.5rem] w-full h-[2rem] bg-transparent border border-[0.01rem] rounded-[0.5rem] shadow-none"
                 >
                   {{ category }}
-                  <i class="fa-solid fa-caret-down" style="color: #222222"></i>
+                  <i
+                    class="fa-solid fa-caret-down"
+                    style="color: #222222"
+                  ></i>
                 </button>
                 <!-- 드롭 다운 목록 -->
                 <ul
@@ -60,15 +73,21 @@
                 </ul>
               </div>
             </li>
-            <li class="flex items-center justify-start gap-[1.5rem]">
+            <li
+              class="flex items-center justify-start gap-[1.5rem]"
+            >
               <h4>금액</h4>
               <input type="number" />
             </li>
-            <li class="flex items-center justify-start gap-[1.5rem]">
+            <li
+              class="flex items-center justify-start gap-[1.5rem]"
+            >
               <h4>내용</h4>
               <input type="text" />
             </li>
-            <li class="flex items-center justify-start gap-[1.5rem]">
+            <li
+              class="flex items-center justify-start gap-[1.5rem]"
+            >
               <h4>지출</h4>
               <input
                 type="radio"
@@ -77,10 +96,16 @@
                 class="w-[5rem] h-[5rem]"
               />
               <h4>수입</h4>
-              <input type="radio" name="type" value="income" />
+              <input
+                type="radio"
+                name="type"
+                value="income"
+              />
             </li>
           </ul>
-          <div class="flex items-end justify-end mt-auto gap-[0.5rem]">
+          <div
+            class="flex items-end justify-end mt-auto gap-[0.5rem]"
+          >
             <button
               class="w-[4rem] h-[2rem] border-none rounded-[0.5rem] shadow-non bg-[#169976] text-[#ffffff] text-[0.7rem]"
             >

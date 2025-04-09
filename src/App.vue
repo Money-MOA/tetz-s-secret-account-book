@@ -1,9 +1,5 @@
 <template>
-  <div
-    :class="[
-      isModalVisible ? 'backdrop-blur-sm bg-black/10' : '',
-    ]"
-  >
+  <div>
     <Header />
     <Sidebar v-if="showSidebar" />
 
@@ -14,7 +10,7 @@
       <RouterView />
     </main>
 
-    <!-- 모달 -->
+    <!-- 모달 (내부에서 visible로 제어됨) -->
     <Modal />
   </div>
 </template>
@@ -38,6 +34,7 @@ const isModalVisible = computed(
   () => modalStore.isModalVisible
 );
 
+// ✅ 모달 열릴 때 body에 흐림 효과 추가
 watch(isModalVisible, (visible) => {
   if (visible) {
     document.body.classList.add('modal-blur');
@@ -72,7 +69,7 @@ const showSidebar = computed(() => {
 </script>
 
 <style scoped>
-/* 흐림 배경을 body에 ::before로 덮는 방식 */
+/* ✅ body에 흐림 배경 가상 요소 추가 */
 .modal-blur::before {
   content: '';
   position: fixed;
