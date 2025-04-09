@@ -4,11 +4,12 @@
       "id": "1",
       "userId": "hi",
       "password": "1234",
-      "nickname": "핑구",
-      "hopeExpense": 1000000,
+      "nickname": "잘했따",
+      "hopeExpense": 8,
       "plannedMonthlyExpenseByCategory": [
         {
           "category": "식비",
+<<<<<<< HEAD
           "amount": 10000
         },
         {
@@ -119,6 +120,28 @@
         },
         {
           "category": "기타",
+=======
+          "amount": 100000
+        },
+        {
+          "category": "교통비",
+          "amount": 200000
+        },
+        {
+          "category": "여가비",
+          "amount": 300000
+        },
+        {
+          "category": "쇼핑비",
+          "amount": 400000
+        },
+        {
+          "category": "생활비",
+          "amount": 500000
+        },
+        {
+          "category": "",
+>>>>>>> feat/MyPage1
           "amount": 0
         }
       ]
