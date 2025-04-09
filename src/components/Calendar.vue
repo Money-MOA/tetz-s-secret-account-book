@@ -1,8 +1,8 @@
 <template>
   <div>
-    <Modal :visible="isModalVisible"></Modal>
+    <Modal />
     <div
-      class="relative w-[calc(100%-3rem)] lg:ml-60 bg-white rounded-[1rem] shadow-md overflow-hidden z-10 border-[#e0e0e0] mx-auto"
+      class="relative w-[calc(100%-3rem)] lg:ml-60 bg-white rounded-[1rem] shadow-md overflow-hidden z-[10] border-[#e0e0e0] mx-auto"
     >
       <!-- 달력 헤더 -->
       <div
@@ -60,7 +60,7 @@
         <div
           v-for="day in daysInMonth"
           :key="day"
-          @click="showModal"
+          @click="test"
           class="h-[4.2rem] bg-white rounded-[1rem] shadow-sm flex flex-col justify-start p-[16px] text-gray-800 cursor-pointer hover:bg-[#E0FAF4] transition border border-[#c3c3c3]"
         >
           <span
@@ -95,6 +95,12 @@ const { showModal } = modalStore;
 const isModalVisible = computed(
   () => modalStore.isModalVisible
 );
+const test = () => {
+  console.log('클릭됨'); // ← 이거 나와야 함
+  showModal();
+  console.log(isModalVisible.value);
+};
+
 // 더미 일정 데이터
 const schedules = ref([
   {
