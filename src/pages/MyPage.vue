@@ -12,7 +12,7 @@
         >
           <i class="fas fa-user text-[32px] text-blue-700 mb-[8px]"></i>
           <h2 class="text-[16px] font-semibold text-blue-800 text-center">
-            김모아
+            {{ nickname }}
           </h2>
         </div>
         <p class="text-gray-500 mt-[16px]">rlaahdk@google.com</p>
@@ -20,11 +20,10 @@
 
       <!-- 닉네임 변경 -->
       <div
-        class="mb-[40px] w-[500px] translate-y-[-60px] translate-x-[-50px] text-left"
+        class="mb-[40px] w-[500px] -translate-y-[60px] -translate-x-[50px] text-left"
       >
-        <p class="font-semibold mb-[px]">닉네임 변경</p>
+        <p class="font-semibold mb-[8px]">닉네임 변경</p>
         <div class="relative flex">
-          <!-- 입력창 -->
           <input
             v-model="nickname"
             type="text"
@@ -32,10 +31,9 @@
             class="w-full border rounded-full px-[20px] py-[10px] text-[14px] bg-gray-50 shadow-sm focus:outline-none focus:ring-2 focus:ring-green-300"
             style="top: 10px; right: -80px"
           />
-          <!-- 저장 버튼 -->
           <button
             @click="saveNickname"
-            class="bg-[#169976] text-[white] px-[20px] py-[8px] rounded-full shadow-md absolute border-none"
+            class="bg-[#169976] text-white px-[20px] py-[8px] rounded-full shadow-md absolute border-none"
             style="top: 3px; right: -90px"
           >
             변경
@@ -44,7 +42,7 @@
       </div>
 
       <!-- 월별 최대 금액 -->
-      <div class="w-[500px] translate-y-[-80px] translate-x-[-50px] text-left">
+      <div class="w-[500px] -translate-y-[80px] -translate-x-[50px] text-left">
         <p class="font-semibold mb-[8px]">월별 최대 금액</p>
         <div class="relative flex">
           <input
@@ -56,31 +54,26 @@
           />
           <button
             @click="saveMonthlyLimit"
-            class="bg-[#169976] text-[white] px-[20px] py-[8px] rounded-full shadow-md absolute border-none"
+            class="bg-[#169976] text-white px-[20px] py-[8px] rounded-full shadow-md absolute border-none"
             style="top: 3px; right: -90px"
           >
             저장
           </button>
         </div>
       </div>
+
       <!-- 카테고리별 최대 금액 -->
       <div
-        class="mb-[60px] w-[500px] translate-x-[-50px] translate-y-[-60px] text-left"
+        class="mb-[60px] w-[500px] -translate-x-[50px] -translate-y-[60px] text-left"
       >
-        <!-- 문구 (개별 위치 이동) -->
-        <div class="translate-x-[0px] translate-y-[0px]">
-          <p class="font-semibold mb-[8px]">카테고리별 최대 금액</p>
-        </div>
-
-        <!-- 드롭다운 + 입력창 + 버튼 (가로 정렬) -->
+        <div><p class="font-semibold mb-[8px]">카테고리별 최대 금액</p></div>
         <div class="flex items-center gap-4 mt-[10px]">
-          <!-- 드롭다운 -->
-          <div class="translate-x-[0px] translate-y-[0px]">
+          <div>
             <select
               v-model="selectedCategory"
               class="border rounded-full px-[16px] py-[8px] text-[14px] bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-green-300"
             >
-              <option value="ok" disabled selected>카테고리 선택</option>
+              <option value="" disabled>카테고리 선택</option>
               <option value="food">식비</option>
               <option value="transport">교통비</option>
               <option value="leisure">여가비</option>
@@ -88,9 +81,7 @@
               <option value="living">생활비</option>
             </select>
           </div>
-
-          <!-- 입력창 -->
-          <div class="translate-x-[30px] translate-y-[0px]">
+          <div class="translate-x-[30px]">
             <input
               v-model="categoryLimit"
               type="text"
@@ -98,12 +89,10 @@
               class="w-[295px] border rounded-full px-[16px] py-[8px] text-[14px] bg-gray-50 shadow-sm focus:outline-none focus:ring-2 focus:ring-green-300"
             />
           </div>
-
-          <!-- 저장 버튼 -->
-          <div class="translate-x-[50px] translate-y-[0px]">
+          <div class="translate-x-[50px]">
             <button
               @click="saveCategoryLimit"
-              class="bg-[#169976] text-[white] w-[70px] py-[8px] text-sm rounded-full bg-green-400 text-white hover:bg-green-500 shadow-md border-none"
+              class="bg-[#169976] text-white w-[70px] py-[8px] text-sm rounded-full hover:bg-green-500 shadow-md border-none"
             >
               저장
             </button>
@@ -115,24 +104,23 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
 const nickname = ref('');
 const monthlyLimit = ref(null);
-const selectedCategory = ref('ok');
+const selectedCategory = ref('');
+const categoryLimit = ref('');
 
-const saveNickname = async () => {
+onMounted(async () => {
   try {
-    await axios.patch('http://localhost:3000/user/1', {
-      nickname: nickname.value,
-    });
-    alert('닉네임이 저장되었습니다.');
+    const res = await axios.get('http://localhost:3000/user/1');
+    nickname.value = res.data.nickname;
+    monthlyLimit.value = res.data.hopeExpense;
   } catch (error) {
-    console.error(error);
-    alert('닉네임 저장 실패!');
+    console.error('데이터 불러오기 실패!', error);
   }
-};
+});
 
 const saveMonthlyLimit = async () => {
   try {
@@ -143,6 +131,46 @@ const saveMonthlyLimit = async () => {
   } catch (error) {
     console.error(error);
     alert('금액 저장 실패!');
+  }
+};
+
+const saveCategoryLimit = async () => {
+  try {
+    const res = await axios.get('http://localhost:3000/user/1');
+    const categories = res.data.plannedMonthlyExpenseByCategory || [];
+
+    const index = categories.findIndex(
+      (item) => item.category === selectedCategory.value
+    );
+
+    if (index !== -1) {
+      categories[index].amount = Number(categoryLimit.value);
+    } else {
+      categories.push({
+        category: selectedCategory.value,
+        amount: Number(categoryLimit.value),
+      });
+    }
+
+    await axios.patch('http://localhost:3000/user/1', {
+      plannedMonthlyExpenseByCategory: categories,
+    });
+
+    alert('카테고리별 최대 금액이 저장되었습니다.');
+  } catch (error) {
+    console.error(error);
+    alert('카테고리 저장 실패!');
+  }
+};
+const saveNickname = async () => {
+  try {
+    await axios.patch('http://localhost:3000/user/1', {
+      nickname: nickname.value,
+    });
+    alert('닉네임이 성공적으로 변경되었습니다.');
+  } catch (error) {
+    console.error('닉네임 변경 실패!', error);
+    alert('닉네임 저장 실패!');
   }
 };
 </script>
