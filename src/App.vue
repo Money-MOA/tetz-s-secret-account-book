@@ -1,51 +1,50 @@
 <template>
-  <div
-    :class="[
-      isModalVisible ? 'backdrop-blur-sm bg-black/10' : '',
-    ]"
-  >
+  <div>
     <Header />
-
-    <!-- 데스크탑일 때만 Sidebar 보여줌 -->
     <Sidebar v-if="showSidebar" />
 
     <main
-      class="pt-[100px]"
+      class="pt-[100px] relative z-10"
       :class="showSidebar ? 'pl-[200px]' : ''"
     >
       <RouterView />
     </main>
-
-    <!-- 모달 -->
-    <Modal />
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import {
+  ref,
+  computed,
+  onMounted,
+  onUnmounted,
+  watch,
+} from 'vue';
 import { useRoute } from 'vue-router';
 import Header from './components/Header.vue';
 import Sidebar from './components/Sidebar.vue';
 import Modal from './components/Modal.vue';
 import { useModalStore } from '@/stores/modalVisible';
 
-// 여긴 모달 열고 닫고 하는거
 const modalStore = useModalStore();
-const { showModal } = modalStore;
 const isModalVisible = computed(
   () => modalStore.isModalVisible
 );
 
-const route = useRoute();
+watch(isModalVisible, (visible) => {
+  if (visible) {
+    document.body.classList.add('modal-blur');
+  } else {
+    document.body.classList.remove('modal-blur');
+  }
+});
 
-// 경로로 Sidebar 감춤
+const route = useRoute();
 const hideSidebarRoutes = ['/login', '/signup', '/'];
 
-// 화면 너비 감지용
 const windowWidth = ref(window.innerWidth);
 const isMobile = computed(() => windowWidth.value < 768);
 
-// resize 이벤트로 화면 크기 추적
 const handleResize = () => {
   windowWidth.value = window.innerWidth;
 };
@@ -57,7 +56,6 @@ onUnmounted(() => {
   window.removeEventListener('resize', handleResize);
 });
 
-// 최종 Sidebar 표시 조건
 const showSidebar = computed(() => {
   return (
     !hideSidebarRoutes.includes(route.path) &&
@@ -65,3 +63,16 @@ const showSidebar = computed(() => {
   );
 });
 </script>
+
+<style scoped>
+/* 흐림 배경을 body에 ::before로 덮는 방식 */
+.modal-blur::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  z-index: 40;
+  pointer-events: none;
+}
+</style>
