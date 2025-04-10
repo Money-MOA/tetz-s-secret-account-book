@@ -1,7 +1,7 @@
 <template>
-  <div class="flex h-screen bg-gray-100 mt-5 mb-5">
+  <div class="flex h-[45rem] bg-gray-100 mt-5 mb-5">
     <div
-      class="bg-[white] shadow-lg px-[32px] py-[16px] w-full max-w-[800px] flex flex-col items-center translate-y-[-1px] mypage-container rounded-[0.75rem]"
+      class="bg-[white] shadow-lg px-[32px] py-[3.5rem] w-full max-w-[800px] flex flex-col items-center translate-y-[-1px] mypage-container rounded-[0.75rem]"
     >
       <!-- 프로필 영역 -->
       <div class="flex flex-col items-center mb-[48px]">
@@ -18,7 +18,7 @@
 
       <!-- 닉네임 변경 -->
       <div
-        class="mb-[40px] w-[12rem] -translate-y-[60px] -translate-x-[50px] text-left"
+        class="mb-[40px] w-[12rem] -translate-y-[2rem] -translate-x-[50px] text-left"
       >
         <p class="font-semibold mb-[8px]">닉네임 변경</p>
         <div class="relative flex">
@@ -40,7 +40,7 @@
       </div>
 
       <!-- 월별 최대 금액 -->
-      <div class="w-[12rem] -translate-y-[80px] -translate-x-[50px] text-left">
+      <div class="w-[12rem] -translate-y-[3rem] -translate-x-[50px] text-left">
         <p class="font-semibold mb-[8px]">월별 최대 금액</p>
         <div class="relative flex">
           <input
@@ -62,7 +62,7 @@
 
       <!-- 카테고리별 최대 금액 -->
       <div
-        class="mb-[60px] w-[12rem] -translate-x-[50px] -translate-y-[60px] text-left"
+        class="mb-[60px] w-[12rem] -translate-x-[50px] -translate-y-[1.5rem] text-left"
       >
         <div><p class="font-semibold mb-[8px]">카테고리별 최대 금액</p></div>
         <div class="flex items-center gap-4 mt-[10px]">
