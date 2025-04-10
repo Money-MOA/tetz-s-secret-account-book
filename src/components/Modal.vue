@@ -18,7 +18,9 @@
       <div class="flex w-full h-full gap-[1rem]">
         <!-- 왼쪽 -->
         <div class="w-1/2 flex flex-col jusify-center">
-          <h3 class="text-center text-lg font-bold">{{ props.date }}</h3>
+          <h3 class="text-center text-lg font-bold">
+            {{ props.date }}
+          </h3>
           <!-- <h3 class="text-center text-lg font-bold mb-[2rem]">2025-04-01</h3> -->
           <ul class="list-none">
             <li
@@ -26,7 +28,9 @@
               :key="history"
               :class="[
                 'w-[22rem] p-[0.5rem] mb-[1rem] border border-[0.01rem] rounded-[1rem]',
-                history.type === 'income' ? 'bg-[#FFD7D7]' : 'bg-[#D7D7FF]',
+                history.type === 'income'
+                  ? 'bg-[#FFD7D7]'
+                  : 'bg-[#D7D7FF]',
               ]"
             >
               {{ history.type }} <br />
@@ -37,17 +41,23 @@
         </div>
 
         <!-- 구분선 -->
-        <div class="w-[1px] h-[80%] bg-[#c3c3c3] self-center"></div>
+        <div
+          class="w-[1px] h-[80%] bg-[#c3c3c3] self-center"
+        ></div>
 
         <!-- 오른쪽 -->
         <div class="w-1/2 flex flex-col justify-between">
-          <h3 class="flex self-center text-lg font-semibold mb-[2rem]">
+          <h3
+            class="flex self-center text-lg font-semibold mb-[2rem]"
+          >
             수입 / 지출 내역 추가
           </h3>
           <ul class="flex flex-col gap-[1.5rem]">
             <!-- 카테고리 -->
             <li class="flex items-center gap-[1.2rem]">
-              <h4 class="text-[0.8rem] font-semibold">카테고리</h4>
+              <h4 class="text-[0.8rem] font-semibold">
+                카테고리
+              </h4>
               <div class="relative w-[17rem]">
                 <button
                   @click="dropOnOff"
@@ -83,7 +93,9 @@
 
             <!-- 금액 -->
             <li class="flex items-center gap-[1.5rem]">
-              <h4 class="text-[0.8rem] font-semibold">금액</h4>
+              <h4 class="text-[0.8rem] font-semibold">
+                금액
+              </h4>
               <input
                 type="number"
                 v-model.trim="price"
@@ -93,7 +105,9 @@
 
             <!-- 내용 -->
             <li class="flex items-center gap-[1.5rem]">
-              <h4 class="text-[0.8rem] font-semibold">내용</h4>
+              <h4 class="text-[0.8rem] font-semibold">
+                내용
+              </h4>
               <textarea
                 maxlength="20"
                 v-model.trim="memo"
@@ -103,7 +117,9 @@
 
             <!-- 수입 / 지출 선택 -->
             <li class="flex items-center gap-[1.5rem]">
-              <h4 class="text-[0.8rem] font-semibold">지출</h4>
+              <h4 class="text-[0.8rem] font-semibold">
+                지출
+              </h4>
               <input
                 type="radio"
                 name="type"
@@ -111,8 +127,15 @@
                 v-model="type"
                 class="mr-2"
               />
-              <h4 class="text-[0.8rem] font-semibold">수입</h4>
-              <input type="radio" name="type" value="income" v-model="type" />
+              <h4 class="text-[0.8rem] font-semibold">
+                수입
+              </h4>
+              <input
+                type="radio"
+                name="type"
+                value="income"
+                v-model="type"
+              />
             </li>
           </ul>
 
@@ -246,7 +269,8 @@ async function setData() {
   //  DB에 값이 이미 있으면 수정
   else {
     await axios.patch(`${monthlyUrl}/${mRes.data[0].id}`, {
-      accumulatedExpense: mRes.data[0].accumulatedExpense + price.value,
+      accumulatedExpense:
+        mRes.data[0].accumulatedExpense + price.value,
     });
   }
 
@@ -270,7 +294,10 @@ async function setData() {
     await axios.patch(`${dailyUrl}/${dRes.data[0].id}`, {
       income: dRes.data[0].income + income,
       outcome: dRes.data[0].outcome + outcome,
-      balance: dRes.data[0].income + income - (dRes.data[0].outcome + outcome),
+      balance:
+        dRes.data[0].income +
+        income -
+        (dRes.data[0].outcome + outcome),
     });
   }
 }

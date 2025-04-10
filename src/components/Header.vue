@@ -6,7 +6,7 @@
       class="m-[2rem] w-full max-w-7xl flex items-center justify-between"
     >
       <!-- 왼쪽: 로고 -->
-      <RouterLink to="/" class="no-underline">
+      <RouterLink :to="logoLink" class="no-underline">
         <h1
           class="text-[3rem] text-[#222222] font-bold righteous-regular"
         >
@@ -64,7 +64,8 @@ import {
 import { useRoute, useRouter } from 'vue-router';
 
 const router = useRouter();
-
+// 로컬 스토리지에서 userId를 가져오기
+const userId = localStorage.getItem('userId');
 // 로그인 상태와 닉네임을 ref로 관리
 const isLoggedIn = ref(
   localStorage.getItem('auth') === 'true'
@@ -72,6 +73,17 @@ const isLoggedIn = ref(
 const nickname = ref(
   localStorage.getItem('nickname') || ''
 );
+
+// 로고 클릭 시 이동할 링크 계산
+const logoLink = computed(() => {
+  if (userId) {
+    // 로그인된 상태라면 userId를 포함한 /main 경로로 이동
+    return { name: 'main', params: { id: userId } };
+  } else {
+    // 로그인되지 않았다면 홈으로 이동
+    return '/';
+  }
+});
 
 // storage 이벤트 리스너로 값 변경 감지
 const handleStorageChange = (event) => {
@@ -111,6 +123,7 @@ onBeforeUnmount(() => {
 // 로그아웃 처리
 const logout = () => {
   localStorage.setItem('auth', 'false'); // localStorage에서 auth 값 'false'로 설정
+  localStorage.removeItem('userId');
   localStorage.removeItem('nickname'); // 닉네임 정보도 제거
   isLoggedIn.value = false; // 로그아웃 상태로 변경
   nickname.value = ''; // 닉네임 초기화
