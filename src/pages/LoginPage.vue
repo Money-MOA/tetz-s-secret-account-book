@@ -59,7 +59,7 @@ async function signup() {
       // 로그인 성공 시 해당 사용자의 id를 URL에 추가
       return router.push({
         name: 'main',
-        params: { id: user.id },
+        params: { id: user.userId },
       });
     } else {
       alert('아이디 / 비밀번호가 틀렸습니다.');
