@@ -15,7 +15,7 @@
             >
               <option disabled value="">선택</option>
               <option value="monthly">카테고리</option>
-              <option value="weekly">월별</option>
+              <!-- <option value="weekly">월별</option> -->
               <option value="daily">일별</option>
             </select>
           </div>
