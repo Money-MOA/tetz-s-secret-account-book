@@ -55,21 +55,25 @@
 </template>
 
 <script setup>
-import { computed, onMounted, onBeforeUnmount } from 'vue';
+import {
+  computed,
+  onMounted,
+  onBeforeUnmount,
+  ref,
+} from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-const curRoute = useRoute();
-const id = computed(() => curRoute.params.id); // 현재 경로에서 id 값을 받아옴
 const router = useRouter();
 
-// 로그인 상태 확인 (localStorage에서 auth 값 가져오기)
-const isLoggedIn = computed(
-  () => localStorage.getItem('auth') === 'true'
+// 로그인 상태와 닉네임을 ref로 관리
+const isLoggedIn = ref(
+  localStorage.getItem('auth') === 'true'
 );
-const nickname = computed(() =>
-  localStorage.getItem('nickname')
+const nickname = ref(
+  localStorage.getItem('nickname') || ''
 );
-// storage 이벤트 리스너 추가
+
+// storage 이벤트 리스너로 값 변경 감지
 const handleStorageChange = (event) => {
   if (event.key === 'auth') {
     isLoggedIn.value = event.newValue === 'true';
@@ -79,8 +83,22 @@ const handleStorageChange = (event) => {
   }
 };
 
+// 라우트가 변경될 때마다 로그인 상태 확인
+const checkLoginStatus = () => {
+  isLoggedIn.value =
+    localStorage.getItem('auth') === 'true';
+  nickname.value = localStorage.getItem('nickname') || '';
+};
+
+// 로그인 상태 확인 (처음 로드 시)
 onMounted(() => {
   window.addEventListener('storage', handleStorageChange); // 다른 탭에서의 변경 감지
+  checkLoginStatus(); // 처음 로딩 시 상태 확인
+
+  // 라우트 변경시 로그인 상태 체크
+  router.afterEach(() => {
+    checkLoginStatus();
+  });
 });
 
 onBeforeUnmount(() => {
@@ -94,6 +112,8 @@ onBeforeUnmount(() => {
 const logout = () => {
   localStorage.setItem('auth', 'false'); // localStorage에서 auth 값 'false'로 설정
   localStorage.removeItem('nickname'); // 닉네임 정보도 제거
+  isLoggedIn.value = false; // 로그아웃 상태로 변경
+  nickname.value = ''; // 닉네임 초기화
   router.push('/'); // 로그아웃 후 메인 페이지로 이동
 };
 </script>
