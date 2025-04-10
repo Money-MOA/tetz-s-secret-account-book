@@ -186,8 +186,8 @@ async function modal() {
     );
     modalData.value = res.data;
 
-    console.log(res);
-    console.log(res.data);
+    console.log('modalData');
+    console.log(modalData);
   } catch (e) {
     console.error(e);
   }
