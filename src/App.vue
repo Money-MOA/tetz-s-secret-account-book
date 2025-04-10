@@ -42,6 +42,11 @@ const handleResize = () => {
 
 onMounted(() => {
   window.addEventListener('resize', handleResize);
+
+  // window.print()를 빈 함수로 덮어쓰는 코드 추가
+  window.print = function () {
+    console.log('window.print() 호출이 차단되었습니다.');
+  };
 });
 
 onUnmounted(() => {
