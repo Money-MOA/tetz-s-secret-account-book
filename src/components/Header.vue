@@ -42,6 +42,7 @@
       <!-- 로그인 후: 환영 메시지 + 로그아웃 버튼 (로그인 했을 때만 보임) -->
       <div v-else class="flex items-center gap-[1rem]">
         <span class="text-[1rem]">환영합니다!</span>
+
         <button
           @click="logout"
           class="text-[1rem] px-[0.5rem] py-[0.5rem] rounded-[0.5rem] text-[white] bg-[#1cdc9f] transition border-[0]"
@@ -55,7 +56,11 @@
 
 <script setup>
 import { computed } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+
+const curRoute = useRoute();
+const id = computed(() => curRoute.params.id); // 현재 경로에서 id 값을 받아옴
+const router = useRouter();
 // 로그인 상태 확인 (localStorage에서 auth 값 가져오기)
 const isLoggedIn = computed(
   () => localStorage.getItem('auth') === 'true'
@@ -63,9 +68,8 @@ const isLoggedIn = computed(
 
 // 로그아웃 처리
 const logout = () => {
-  localStorage.removeItem('auth'); // localStorage에서 auth 값 제거
-  window.location.reload(); // 새로고침하여 로그인 상태 초기화
-  router.push('/');
+  localStorage.setItem('auth', 'false'); // localStorage에서 auth 값 'false'로 설정
+  router.push('/'); // 로그아웃 후 메인 페이지로 이동
 };
 </script>
 
