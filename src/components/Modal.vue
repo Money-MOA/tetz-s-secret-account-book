@@ -18,32 +18,27 @@
       <div class="flex w-full h-full gap-[1rem]">
         <!-- 왼쪽 -->
         <div class="w-1/2">
-          <h3 class="text-center text-lg font-bold">
-            2024.04.09 (수)
-          </h3>
+          <h3 class="text-center text-lg font-bold">2024.04.09 (수)</h3>
         </div>
 
         <!-- 구분선 -->
-        <div
-          class="w-[1px] h-[80%] bg-[#c3c3c3] self-center"
-        ></div>
+        <div class="w-[1px] h-[80%] bg-[#c3c3c3] self-center"></div>
 
         <!-- 오른쪽 -->
-        <div class="w-1/2 flex flex-col justify-center">
-          <h3
-            class="text-center text-lg font-semibold mb-4"
-          >
+        <div class="w-1/2 flex flex-col justify-between">
+          <h3 class="flex self-center text-lg font-semibold mb-[2rem]">
             수입 / 지출 내역 추가
           </h3>
-          <ul class="space-y-4">
+          <ul class="flex flex-col gap-[1.5rem]">
             <li class="flex items-center gap-[1.2rem]">
               <h4 class="text-[0.8rem] font-semibold">
                 카테고리
               </h4>
+>>>>>>> feat/modal-fix
               <div class="relative w-[20rem]">
                 <button
                   @click="dropOnOff"
-                  class="flex items-center justify-between p-2 w-full h-[2rem] border border-gray-300 rounded-md"
+                  class="flex items-center justify-between p-2 w-full h-[2rem] bg-[#f3f3f3] border border-gray-300 rounded-md"
                 >
                   {{ category }}
                   <i class="fa-solid fa-caret-down"></i>
@@ -74,9 +69,7 @@
             </li>
 
             <li class="flex items-center gap-[1.5rem]">
-              <h4 class="text-[0.8rem] font-semibold">
-                금액
-              </h4>
+              <h4 class="text-[0.8rem] font-semibold">금액</h4>
               <input
                 type="number"
                 class="border border-gray-300 rounded-md p-1 w-[20rem]"
@@ -87,6 +80,7 @@
               <h4 class="text-[0.8rem] font-semibold">
                 내용
               </h4>
+>>>>>>> feat/modal-fix
               <textarea
                 maxlength="20"
                 class="w-[20rem] h-[8rem] resize-none border border-gray-300 rounded-md p-2"
@@ -97,12 +91,20 @@
               <h4 class="text-[0.8rem] font-semibold">
                 지출
               </h4>
+>>>>>>> feat/modal-fix
               <input
                 type="radio"
                 name="type"
                 value="outcome"
                 class="mr-2"
               />
+<<<<<<< HEAD
+              <h4>수입</h4>
+              <input type="radio" name="type" value="income" />
+            </li>
+          </ul>
+          <div class="flex items-end justify-end mt-auto gap-[0.5rem]">
+=======
               <h4 class="text-[0.8rem] font-semibold">
                 수입
               </h4>
@@ -116,17 +118,17 @@
 
           <div class="flex justify-end gap-2 mt-8">
             <button
-              class="w-[4rem] h-[2rem] bg-red-400 text-white rounded-md text-sm"
+              class="w-[4rem] h-[2rem] bg-[#169976] text-white border-none shadow-none rounded-[0.5rem]"
             >
               삭제
             </button>
             <button
-              class="w-[4rem] h-[2rem] bg-yellow-400 text-white rounded-md text-sm"
+              class="w-[4rem] h-[2rem] bg-[#169976] text-white border-none shadow-none rounded-[0.5rem]"
             >
               수정
             </button>
             <button
-              class="w-[4rem] h-[2rem] bg-green-600 text-white rounded-md text-sm"
+              class="w-[4rem] h-[2rem] bg-[#169976] text-white border-none shadow-none rounded-[0.5rem]"
             >
               추가
             </button>
