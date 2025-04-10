@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Modal />
+    <Modal :date="selectedDate" />
     <div
       class="relative w-[calc(100%-3rem)] lg:ml-60 bg-white rounded-[1rem] shadow-md overflow-hidden z-[10] border-[#e0e0e0] mx-auto"
     >
@@ -62,7 +62,7 @@
         <div
           v-for="day in daysInMonth"
           :key="day"
-          @click="test"
+          @click="selectDate(day)"
           class="h-[7rem] bg-white rounded-[1rem] shadow-sm flex flex-col justify-start p-[8px] text-gray-800 cursor-pointer hover:bg-[#E0FAF4] transition border border-[#c3c3c3]"
         >
           <span
@@ -99,6 +99,7 @@
 </template>
 
 <script setup>
+import axios from 'axios';
 import { ref, computed, onMounted } from 'vue';
 import Modal from './Modal.vue';
 import { useModalStore } from '@/stores/modalVisible';
@@ -108,12 +109,6 @@ const { showModal } = modalStore;
 const isModalVisible = computed(
   () => modalStore.isModalVisible
 );
-
-const test = () => {
-  console.log('클릭됨');
-  showModal();
-  console.log(isModalVisible.value);
-};
 
 // 날짜 상태
 const currentDate = ref(new Date());
@@ -161,15 +156,25 @@ const formatDate = (day) => {
   return `${currentYear.value}-${mm}-${dd}`;
 };
 
+// 선택된 날짜를 저장할 변수
+const selectedDate = ref(null);
+
+// 날짜 선택 시 호출되는 함수
+const selectDate = (day) => {
+  selectedDate.value = formatDate(day); // 선택된 날짜를 selectedDate에 저장
+  console.log(selectedDate.value);
+
+  showModal(); // 모달 열기
+};
+
 // API로 불러온 dailyExpense 저장
 const dailyExpenses = ref([]);
-
+const BASE_URL = '/api';
 onMounted(async () => {
   try {
-    const res = await fetch(
-      'http://localhost:3000/dailyExpense'
-    );
-    dailyExpenses.value = await res.json();
+    const dailyUrl = BASE_URL + 'dailyExpense';
+    const res = await axios.get(dailyUrl);
+    dailyExpenses.value = res.data;
   } catch (error) {
     console.error(
       '지출 데이터를 불러오는 데 실패했습니다.',

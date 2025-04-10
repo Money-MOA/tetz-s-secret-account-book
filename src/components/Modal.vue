@@ -45,6 +45,7 @@
             수입 / 지출 내역 추가
           </h3>
           <ul class="flex flex-col gap-[1.5rem]">
+            <!-- 카테고리 -->
             <li class="flex items-center gap-[1.2rem]">
               <h4 class="text-[0.8rem] font-semibold">카테고리</h4>
               <div class="relative w-[17rem]">
@@ -80,6 +81,7 @@
               </div>
             </li>
 
+            <!-- 금액 -->
             <li class="flex items-center gap-[1.5rem]">
               <h4 class="text-[0.8rem] font-semibold">금액</h4>
               <input
@@ -89,6 +91,7 @@
               />
             </li>
 
+            <!-- 내용 -->
             <li class="flex items-center gap-[1.5rem]">
               <h4 class="text-[0.8rem] font-semibold">내용</h4>
               <textarea
@@ -98,6 +101,7 @@
               ></textarea>
             </li>
 
+            <!-- 수입 / 지출 선택 -->
             <li class="flex items-center gap-[1.5rem]">
               <h4 class="text-[0.8rem] font-semibold">지출</h4>
               <input
@@ -112,6 +116,7 @@
             </li>
           </ul>
 
+          <!-- 버튼 -->
           <div class="flex justify-end gap-2 mt-8">
             <button
               class="w-[4rem] h-[2rem] bg-[#169976] text-white border-none shadow-none rounded-[0.5rem]"

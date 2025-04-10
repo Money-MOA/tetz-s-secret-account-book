@@ -2,7 +2,7 @@
   <div>
     <Header />
 
-    <!-- 데스크탑일 때만 Sidebar 보여줌 -->
+    <!-- 로그인 상태에 따라 Sidebar 표시 여부 결정 -->
     <Sidebar v-if="showSidebar" />
 
     <main
@@ -15,7 +15,13 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import {
+  ref,
+  computed,
+  watch,
+  onMounted,
+  onUnmounted,
+} from 'vue';
 import { useRoute } from 'vue-router';
 import Header from './components/Header.vue';
 import Sidebar from './components/Sidebar.vue';
@@ -37,15 +43,24 @@ const handleResize = () => {
 onMounted(() => {
   window.addEventListener('resize', handleResize);
 });
+
 onUnmounted(() => {
   window.removeEventListener('resize', handleResize);
 });
+
+// 로그인 상태에 따라 Sidebar 표시 여부 결정
+const isLoggedIn = computed(
+  () => localStorage.getItem('auth') === 'true'
+);
 
 // 최종 Sidebar 표시 조건
 const showSidebar = computed(() => {
   return (
     !hideSidebarRoutes.includes(route.path) &&
-    !isMobile.value
+    !isMobile.value &&
+    isLoggedIn.value
   );
 });
 </script>
+
+<style scoped></style>
