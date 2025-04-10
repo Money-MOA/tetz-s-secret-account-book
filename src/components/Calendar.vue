@@ -99,6 +99,7 @@
 </template>
 
 <script setup>
+import axios from 'axios';
 import { ref, computed, onMounted } from 'vue';
 import Modal from './Modal.vue';
 import { useModalStore } from '@/stores/modalVisible';
@@ -163,13 +164,12 @@ const formatDate = (day) => {
 
 // API로 불러온 dailyExpense 저장
 const dailyExpenses = ref([]);
-
+const BASE_URL = '/api';
 onMounted(async () => {
   try {
-    const res = await fetch(
-      'http://localhost:3000/dailyExpense'
-    );
-    dailyExpenses.value = await res.json();
+    const dailyUrl = BASE_URL + 'dailyExpense';
+    const res = await axios.get(dailyUrl);
+    dailyExpenses.value = res.data;
   } catch (error) {
     console.error(
       '지출 데이터를 불러오는 데 실패했습니다.',

@@ -6,7 +6,9 @@
       class="flex flex-col items-center justify-center px-[2rem] py-[1rem] w-[70rem] h-[37rem] border border-[0.01rem] border-[#c3c3c3] rounded-[3rem] bg-[#ffffff] shadow-[3px_3px_6px_rgba(0,0,0,0.3)]"
     >
       <h1 class="mb-[5rem]">로그인</h1>
-      <div class="w-[25rem] flex flex-col self-center gap-[0.5rem]">
+      <div
+        class="w-[25rem] flex flex-col self-center gap-[0.5rem]"
+      >
         <input
           type="text"
           placeholder="아이디를 입력해주세요."
@@ -44,14 +46,21 @@ const password = ref('');
 
 async function signup() {
   try {
-    const userUrl = BASE_URL + '/user';
+    // 사용자 조회 API
     const success = await axios.get(
       `${BASE_URL}/user?userId=${userId.value}&password=${password.value}`
     );
-    console.log(success.data);
+
+    // 로그인 성공: userId와 password가 일치하는 경우
     if (success.data.length > 0) {
-      localStorage.setItem('auth', 'true');
-      return router.push({ name: 'main' });
+      const user = success.data[0]; // 첫 번째 사용자 (로그인된 사용자)
+      localStorage.setItem('auth', 'true'); // 로그인 상태 저장
+
+      // 로그인 성공 시 해당 사용자의 id를 URL에 추가
+      return router.push({
+        name: 'main',
+        params: { id: user.id },
+      });
     } else {
       alert('아이디 / 비밀번호가 틀렸습니다.');
     }
