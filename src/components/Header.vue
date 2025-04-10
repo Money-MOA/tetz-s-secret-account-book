@@ -41,7 +41,7 @@
 
       <!-- 로그인 후: 환영 메시지 + 로그아웃 버튼 (로그인 했을 때만 보임) -->
       <div v-else class="flex items-center gap-[1rem]">
-        <span class="text-[1rem]">환영합니다!</span>
+        <span class="text-[1rem]">{{ nickname }}님 !</span>
 
         <button
           @click="logout"
@@ -55,22 +55,45 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted, onBeforeUnmount } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const curRoute = useRoute();
 const id = computed(() => curRoute.params.id); // 현재 경로에서 id 값을 받아옴
 const router = useRouter();
+
 // 로그인 상태 확인 (localStorage에서 auth 값 가져오기)
 const isLoggedIn = computed(
   () => localStorage.getItem('auth') === 'true'
 );
+const nickname = computed(() =>
+  localStorage.getItem('nickname')
+);
+// storage 이벤트 리스너 추가
+const handleStorageChange = (event) => {
+  if (event.key === 'auth') {
+    isLoggedIn.value = event.newValue === 'true';
+  }
+  if (event.key === 'nickname') {
+    nickname.value = event.newValue;
+  }
+};
+
+onMounted(() => {
+  window.addEventListener('storage', handleStorageChange); // 다른 탭에서의 변경 감지
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener(
+    'storage',
+    handleStorageChange
+  ); // 컴포넌트가 파괴될 때 이벤트 제거
+});
 
 // 로그아웃 처리
 const logout = () => {
   localStorage.setItem('auth', 'false'); // localStorage에서 auth 값 'false'로 설정
+  localStorage.removeItem('nickname'); // 닉네임 정보도 제거
   router.push('/'); // 로그아웃 후 메인 페이지로 이동
 };
 </script>
-
-<style scoped></style>

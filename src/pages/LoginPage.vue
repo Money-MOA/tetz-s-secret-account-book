@@ -55,7 +55,7 @@ async function signup() {
     if (success.data.length > 0) {
       const user = success.data[0]; // 첫 번째 사용자 (로그인된 사용자)
       localStorage.setItem('auth', 'true'); // 로그인 상태 저장
-
+      localStorage.setItem('nickname', user.nickname); // nickname 저장
       // 로그인 성공 시 해당 사용자의 id를 URL에 추가
       return router.push({
         name: 'main',
