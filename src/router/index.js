@@ -27,27 +27,46 @@ const router = createRouter({
       component: () => import('../pages/SignupPage.vue'),
     },
     {
-      path: '/expenseGraph',
+      path: '/expenseGraph/:id',
       name: 'expenseGraph',
       component: () =>
         import('../pages/ExpenseGraphPage.vue'),
+      meta: { requiresAuth: true },
+      props: true,
     },
     {
-      path: '/calendar',
+      path: '/calendar/:id',
       name: 'calendar',
       component: () => import('../pages/CalendarPage.vue'),
+      meta: { requiresAuth: true },
+      props: true,
     },
     {
-      path: '/main',
+      path: '/main/:id',
       name: 'main',
       component: () => import('../pages/MainPage.vue'),
+      meta: { requiresAuth: true },
+      props: true,
     },
     {
-      path: '/my',
+      path: '/my/:id',
       name: 'my',
       component: () => import('../pages/MyPage.vue'),
+      meta: { requiresAuth: true },
+      props: true,
     },
   ],
 });
+router.beforeEach(function (to, from, next) {
+  if (
+    to.matched.some((record) => record.meta.requiresAuth)
+  ) {
+    if (localStorage.getItem('auth') !== 'true') {
+      alert('로그인이 필요 합니다');
+      return next({ name: '/' });
+    }
+  }
 
+  next();
+});
 export default router;
