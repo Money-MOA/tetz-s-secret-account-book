@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Modal />
+    <Modal :date="selectedDate" />
     <div
       class="relative w-[calc(100%-3rem)] lg:ml-60 bg-white rounded-[1rem] shadow-md overflow-hidden z-[10] border-[#e0e0e0] mx-auto"
     >
@@ -62,7 +62,7 @@
         <div
           v-for="day in daysInMonth"
           :key="day"
-          @click="test"
+          @click="selectDate(day)"
           class="h-[7rem] bg-white rounded-[1rem] shadow-sm flex flex-col justify-start p-[8px] text-gray-800 cursor-pointer hover:bg-[#E0FAF4] transition border border-[#c3c3c3]"
         >
           <span
@@ -110,12 +110,6 @@ const isModalVisible = computed(
   () => modalStore.isModalVisible
 );
 
-const test = () => {
-  console.log('클릭됨');
-  showModal();
-  console.log(isModalVisible.value);
-};
-
 // 날짜 상태
 const currentDate = ref(new Date());
 const currentYear = computed(() =>
@@ -160,6 +154,17 @@ const formatDate = (day) => {
   );
   const dd = String(day).padStart(2, '0');
   return `${currentYear.value}-${mm}-${dd}`;
+};
+
+// 선택된 날짜를 저장할 변수
+const selectedDate = ref(null);
+
+// 날짜 선택 시 호출되는 함수
+const selectDate = (day) => {
+  selectedDate.value = formatDate(day); // 선택된 날짜를 selectedDate에 저장
+  console.log(selectedDate.value);
+
+  showModal(); // 모달 열기
 };
 
 // API로 불러온 dailyExpense 저장
