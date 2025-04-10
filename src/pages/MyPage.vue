@@ -1,8 +1,7 @@
 <template>
   <div class="flex h-screen items-center justify-center bg-gray-100">
     <div
-      class="bg-[white] shadow-lg px-[32px] py-[16px] w-full max-w-[1000px] flex flex-col items-center translate-y-[-1px]"
-      style="border-radius: 100px / 40px"
+      class="bg-[white] shadow-lg px-[32px] py-[16px] w-full max-w-[800px] flex flex-col items-center translate-y-[-1px] mypage-container rounded-[0.75rem]"
     >
       <!-- 프로필 영역 -->
       <div class="flex flex-col items-center mb-[48px]">
@@ -19,7 +18,7 @@
 
       <!-- 닉네임 변경 -->
       <div
-        class="mb-[40px] w-[500px] -translate-y-[60px] -translate-x-[50px] text-left"
+        class="mb-[40px] w-[12rem] -translate-y-[60px] -translate-x-[50px] text-left"
       >
         <p class="font-semibold mb-[8px]">닉네임 변경</p>
         <div class="relative flex">
@@ -41,7 +40,7 @@
       </div>
 
       <!-- 월별 최대 금액 -->
-      <div class="w-[500px] -translate-y-[80px] -translate-x-[50px] text-left">
+      <div class="w-[12rem] -translate-y-[80px] -translate-x-[50px] text-left">
         <p class="font-semibold mb-[8px]">월별 최대 금액</p>
         <div class="relative flex">
           <input
@@ -63,16 +62,18 @@
 
       <!-- 카테고리별 최대 금액 -->
       <div
-        class="mb-[60px] w-[500px] -translate-x-[50px] -translate-y-[60px] text-left"
+        class="mb-[60px] w-[12rem] -translate-x-[50px] -translate-y-[60px] text-left"
       >
         <div><p class="font-semibold mb-[8px]">카테고리별 최대 금액</p></div>
         <div class="flex items-center gap-4 mt-[10px]">
+          <!-- 드롭다운 -->
+          <!-- 드롭다운 -->
           <!-- 드롭다운 -->
           <div>
             <select
               v-model="selectedCategory"
               @change="loadCategoryLimit"
-              class="border rounded-full px-[16px] py-[8px] text-[14px] bg-white shadow-sm"
+              class="border rounded-full px-[5px] py-[8px] text-[14px] bg-white shadow-sm text-center w-[80px]"
             >
               <option value="" disabled>카테고리 선택</option>
               <option value="식비">식비</option>
@@ -84,17 +85,17 @@
           </div>
 
           <!-- 입력창 -->
-          <div class="translate-x-[30px]">
+          <div class="translate-x-[-10px]">
             <input
               v-model="categoryLimit"
               type="text"
               placeholder="금액 입력"
-              class="w-[295px] border rounded-full px-[16px] py-[8px] text-[14px] bg-gray-50 shadow-sm"
+              class="w-[6rem] border rounded-full px-[16px] py-[8px] text-[14px] bg-gray-50 shadow-sm"
             />
           </div>
 
           <!-- 저장 버튼 -->
-          <div class="translate-x-[35px]">
+          <div class="translate-x-[-13px]">
             <button
               @click="saveCategoryLimit"
               class="bg-[#169976] text-white w-[70px] py-[8px] text-sm rounded-full shadow-md border-none"
@@ -119,6 +120,7 @@ const selectedCategory = ref('');
 const categoryLimit = ref('');
 let categoryData = [];
 
+// 기존 코드와 동일한 방식으로 데이터 로딩
 onMounted(async () => {
   try {
     const res = await axios.get('http://localhost:3000/user/1');
@@ -187,3 +189,18 @@ const saveCategoryLimit = async () => {
   }
 };
 </script>
+
+<style scoped>
+.mypage-container {
+  max-width: 90%; /* 반응형으로 크기 조절 */
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .mypage-container {
+    width: 100%;
+    padding: 1rem;
+  }
+}
+</style>
