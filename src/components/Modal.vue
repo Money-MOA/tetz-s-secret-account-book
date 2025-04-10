@@ -143,7 +143,7 @@
 
 <script setup>
 import axios from 'axios';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useModalStore } from '@/stores/modalVisible';
 import { useRoute, useRouter } from 'vue-router';
 
@@ -153,6 +153,7 @@ const BASE_URL = '/api';
 const modalData = ref([]);
 // props 받아옴
 const props = defineProps(['date']);
+print(props.date);
 const dateObj = new Date(props.date);
 const month = dateObj.getMonth() + 1;
 
@@ -193,7 +194,11 @@ async function modal() {
   }
 }
 
-modal();
+watch(visible, (newVal) => {
+  if (newVal) {
+    modal(); // 모달이 열릴 때만 데이터 요청
+  }
+});
 
 async function setData() {
   const historyUrl = BASE_URL + '/history';
@@ -203,6 +208,9 @@ async function setData() {
 
   const income = type.value == 'income' ? price.value : 0;
   const outcome = type.value == 'outcome' ? price.value : 0;
+
+  console.log('week');
+  console.log(modalData[0].week);
 
   // 아직 값이 없으면 추가할 데이터 객체
   const hData = {

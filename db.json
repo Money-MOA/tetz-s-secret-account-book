@@ -2,7 +2,7 @@
   "user": [
     {
       "id": "1",
-      "userId": "hi",
+      "userId": "1",
       "password": "1234",
       "nickname": "여누",
       "hopeExpense": 1000000,
@@ -97,6 +97,17 @@
       "category": "식비",
       "memo": "아파트 정비",
       "price": 10000
+    },
+    {
+      "id": "3",
+      "userId": "1",
+      "date": "2025-04-02",
+      "month": 1,
+      "week": 1,
+      "type": "outcome",
+      "category": "식비",
+      "memo": "라멘 먹기 맛있당",
+      "price": 100000
     }
   ],
   "monthlyExpense": [
