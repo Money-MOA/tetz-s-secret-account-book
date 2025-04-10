@@ -18,9 +18,9 @@
 import {
   ref,
   computed,
+  watch,
   onMounted,
   onUnmounted,
-  watch,
 } from 'vue';
 import { useRoute } from 'vue-router';
 import Header from './components/Header.vue';
@@ -61,16 +61,6 @@ const showSidebar = computed(() => {
     isLoggedIn.value
   );
 });
-
-// 로그인 상태 변경을 감지하여 반영
-watch(
-  () => localStorage.getItem('auth'),
-  (newVal) => {
-    // 로그인 상태가 바뀔 때마다 showSidebar 값을 업데이트
-    showSidebar.value =
-      localStorage.getItem('auth') === 'true';
-  }
-);
 </script>
 
 <style scoped></style>
