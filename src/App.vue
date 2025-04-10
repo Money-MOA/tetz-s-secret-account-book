@@ -7,7 +7,7 @@
 
     <main
       class="pt-[100px]"
-      :class="showSidebar ? 'pl-[200px]' : ''"
+      :class="showSidebar ? 'pl-[220px]' : ''"
     >
       <RouterView />
     </main>

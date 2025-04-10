@@ -2,7 +2,7 @@
   <div>
     <Modal :date="selectedDate" />
     <div
-      class="relative w-[calc(100%-3rem)] lg:ml-60 bg-white rounded-[1rem] shadow-md overflow-hidden z-[10] border-[#e0e0e0] mx-auto"
+      class="relative w-[full] lg:ml-60 bg-white rounded-[1rem] shadow-md overflow-hidden z-[10] border-[#e0e0e0] mx-auto"
     >
       <!-- 달력 헤더 -->
       <div
