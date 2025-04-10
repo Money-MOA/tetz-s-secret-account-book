@@ -4,7 +4,7 @@
       "id": "1",
       "userId": "hi",
       "password": "1234",
-      "nickname": "강병현",
+      "nickname": "병현냥",
       "hopeExpense": 1000000,
       "plannedMonthlyExpenseByCategory": [
         {
@@ -32,13 +32,54 @@
           "amount": 0
         }
       ]
+    },
+    {
+      "id": "5744",
+      "userId": "",
+      "password": "",
+      "nickname": "",
+      "hopeExpense": 0,
+      "plannedMonthlyExpenseByCategory": [
+        {
+          "category": "식비",
+          "amount": 0
+        },
+        {
+          "category": "교통비",
+          "amount": 0
+        },
+        {
+          "category": "주거비",
+          "amount": 0
+        },
+        {
+          "category": "여가비",
+          "amount": 0
+        },
+        {
+          "category": "의료비",
+          "amount": 0
+        },
+        {
+          "category": "문화비",
+          "amount": 0
+        },
+        {
+          "category": "교육비",
+          "amount": 0
+        },
+        {
+          "category": "기타",
+          "amount": 0
+        }
+      ]
     }
   ],
   "history": [
     {
       "id": "1",
       "userId": "1",
-      "date": "01-02",
+      "date": "2025-04-01",
       "month": 1,
       "week": 1,
       "type": "income",
@@ -48,8 +89,8 @@
     },
     {
       "id": "2",
-      "userId": "3",
-      "date": "01-03",
+      "userId": "1",
+      "date": "2025-04-01",
       "month": 1,
       "week": 1,
       "type": "outcome",
@@ -63,15 +104,13 @@
       "id": "1",
       "userId": "1",
       "month": 1,
-      "accumulatedExpense": 10000,
-      "isExceeded": true
+      "accumulatedExpense": 10000
     },
     {
       "id": "2",
       "userId": "1",
       "month": 2,
-      "accumulatedExpense": 21000,
-      "isExceeded": true
+      "accumulatedExpense": 21000
     }
   ],
   "weeklyExpense": [
@@ -80,16 +119,14 @@
       "userId": "1",
       "month": 1,
       "week": 1,
-      "outcome": 10000,
-      "isExceeded": false
+      "outcome": 10000
     },
     {
       "id": "2",
       "userId": "1",
       "month": 1,
       "week": 2,
-      "outcome": 30000,
-      "isExceeded": true
+      "outcome": 30000
     }
   ],
   "dailyExpense": [

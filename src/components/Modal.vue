@@ -17,8 +17,23 @@
       <!-- 모달 내용 -->
       <div class="flex w-full h-full gap-[1rem]">
         <!-- 왼쪽 -->
-        <div class="w-1/2">
-          <h3 class="text-center text-lg font-bold">2024.04.09 (수)</h3>
+        <div class="w-1/2 flex flex-col jusify-center">
+          <h3 class="text-center text-lg font-bold">{{ props.date }}</h3>
+          <!-- <h3 class="text-center text-lg font-bold mb-[2rem]">2025-04-01</h3> -->
+          <ul class="list-none">
+            <li
+              v-for="history in modalData"
+              :key="history"
+              :class="[
+                'w-[22rem] p-[0.5rem] mb-[1rem] border border-[0.01rem] rounded-[1rem]',
+                history.type === 'income' ? 'bg-[#FFD7D7]' : 'bg-[#D7D7FF]',
+              ]"
+            >
+              {{ history.type }} <br />
+              {{ history.category }} <br />
+              {{ history.memo }}
+            </li>
+          </ul>
         </div>
 
         <!-- 구분선 -->
@@ -69,6 +84,7 @@
               <h4 class="text-[0.8rem] font-semibold">금액</h4>
               <input
                 type="number"
+                v-model.trim="price"
                 class="border border-gray-300 rounded-md p-1 w-[20rem]"
               />
             </li>
@@ -77,15 +93,22 @@
               <h4 class="text-[0.8rem] font-semibold">내용</h4>
               <textarea
                 maxlength="20"
+                v-model.trim="memo"
                 class="w-[20rem] h-[8rem] resize-none border border-gray-300 rounded-md p-2"
               ></textarea>
             </li>
 
             <li class="flex items-center gap-[1.5rem]">
               <h4 class="text-[0.8rem] font-semibold">지출</h4>
-              <input type="radio" name="type" value="outcome" class="mr-2" />
+              <input
+                type="radio"
+                name="type"
+                value="outcome"
+                v-model="type"
+                class="mr-2"
+              />
               <h4 class="text-[0.8rem] font-semibold">수입</h4>
-              <input type="radio" name="type" value="income" />
+              <input type="radio" name="type" value="income" v-model="type" />
             </li>
           </ul>
 
@@ -101,6 +124,7 @@
               수정
             </button>
             <button
+              @click="setData"
               class="w-[4rem] h-[2rem] bg-[#169976] text-white border-none shadow-none rounded-[0.5rem]"
             >
               추가
@@ -113,8 +137,26 @@
 </template>
 
 <script setup>
+import axios from 'axios';
 import { computed, ref } from 'vue';
 import { useModalStore } from '@/stores/modalVisible';
+import { useRoute, useRouter } from 'vue-router';
+
+const router = useRouter();
+const BASE_URL = '/api';
+
+const modalData = ref([]);
+// props 받아옴
+const props = defineProps(['date']);
+const dateObj = new Date(props.date);
+const month = dateObj.getMonth() + 1;
+
+const route = useRoute();
+const userId = route.params.id;
+
+const price = ref(0);
+const memo = ref('');
+const type = ref('');
 
 const modalStore = useModalStore();
 const visible = computed(() => modalStore.isModalVisible);
@@ -129,6 +171,108 @@ function dropOnOff() {
 function selectCategory(c) {
   category.value = c;
 }
+
+async function modal() {
+  try {
+    const userUrl = BASE_URL + '/history';
+    const res = await axios.get(
+      `${BASE_URL}/history?userId=${userId}&date=${props.date}`
+      //   `${BASE_URL}/history?userId=1&date=2025-04-01`
+    );
+    modalData.value = res.data;
+
+    console.log(res);
+    console.log(res.data);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+modal();
+
+async function setData() {
+  const historyUrl = BASE_URL + '/history';
+  const monthlyUrl = BASE_URL + '/monthly';
+  const weeklyUrl = BASE_URL + '/weekly';
+  const dailyUrl = BASE_URL + '/daily';
+
+  const income = type.value == 'income' ? price.value : 0;
+  const outcome = type.value == 'outcome' ? price.value : 0;
+
+  // 아직 값이 없으면 추가할 데이터 객체
+  const hData = {
+    userId: userId,
+    date: props.date,
+    month: month,
+    week: modalData[0].week,
+    type: type.value,
+    category: category.value,
+    memo: memo.value,
+    price: price.value,
+  };
+  const mData = {
+    userId: userId,
+    month: month,
+    accumulatedExpense: price.value,
+  };
+  const wData = {
+    userId: userId,
+    month: month,
+    week: modalData[0].week,
+    outcome: outcome,
+  };
+  const dData = {
+    userId: userId,
+    date: props.date,
+    income: income,
+    outcome: outcome,
+    balance: income - outcome,
+  };
+
+  await axios.post(historyUrl, hData);
+
+  const mRes = await axios.get(
+    `${monthlyUrl}?userId=${userId}&month=${modalData[0].month}`
+  );
+  //  DB에 값 없으면 추가
+  if (mRes.data.length === 0) {
+    await axios.post(monthlyUrl, mData);
+  }
+  //  DB에 값이 이미 있으면 수정
+  else {
+    await axios.patch(`${monthlyUrl}/${mRes.data[0].id}`, {
+      accumulatedExpense: mRes.data[0].accumulatedExpense + price.value,
+    });
+  }
+
+  const wRes = await axios.get(
+    `${weeklyUrl}?userId=${userId}&week=${modalData[0].week}`
+  );
+  if (wRes.data.length === 0) {
+    await axios.post(weeklyUrl, wData);
+  } else {
+    await axios.patch(`${weeklyUrl}/${wRes.data[0].id}`, {
+      outcome: wRes.data[0].outcome + outcome,
+    });
+  }
+
+  const dRes = await axios.get(
+    `${dailyUrl}?userId=${userId}&date=${props.date}`
+  );
+  if (dRes.data.length === 0) {
+    await axios.post(dailyUrl, dData);
+  } else {
+    await axios.patch(`${dailyUrl}/${dRes.data[0].id}`, {
+      income: dRes.data[0].income + income,
+      outcome: dRes.data[0].outcome + outcome,
+      balance: dRes.data[0].income + income - (dRes.data[0].outcome + outcome),
+    });
+  }
+}
+
+async function updateData() {}
+
+async function deleteData() {}
 </script>
 
 <style scoped>
