@@ -31,11 +31,8 @@
           </h3>
           <ul class="flex flex-col gap-[1.5rem]">
             <li class="flex items-center gap-[1.2rem]">
-              <h4 class="text-[0.8rem] font-semibold">
-                카테고리
-              </h4>
->>>>>>> feat/modal-fix
-              <div class="relative w-[20rem]">
+              <h4 class="text-[0.8rem] font-semibold">카테고리</h4>
+              <div class="relative w-[17rem]">
                 <button
                   @click="dropOnOff"
                   class="flex items-center justify-between p-2 w-full h-[2rem] bg-[#f3f3f3] border border-gray-300 rounded-md"
@@ -77,10 +74,7 @@
             </li>
 
             <li class="flex items-center gap-[1.5rem]">
-              <h4 class="text-[0.8rem] font-semibold">
-                내용
-              </h4>
->>>>>>> feat/modal-fix
+              <h4 class="text-[0.8rem] font-semibold">내용</h4>
               <textarea
                 maxlength="20"
                 class="w-[20rem] h-[8rem] resize-none border border-gray-300 rounded-md p-2"
@@ -88,31 +82,10 @@
             </li>
 
             <li class="flex items-center gap-[1.5rem]">
-              <h4 class="text-[0.8rem] font-semibold">
-                지출
-              </h4>
->>>>>>> feat/modal-fix
-              <input
-                type="radio"
-                name="type"
-                value="outcome"
-                class="mr-2"
-              />
-<<<<<<< HEAD
-              <h4>수입</h4>
+              <h4 class="text-[0.8rem] font-semibold">지출</h4>
+              <input type="radio" name="type" value="outcome" class="mr-2" />
+              <h4 class="text-[0.8rem] font-semibold">수입</h4>
               <input type="radio" name="type" value="income" />
-            </li>
-          </ul>
-          <div class="flex items-end justify-end mt-auto gap-[0.5rem]">
-=======
-              <h4 class="text-[0.8rem] font-semibold">
-                수입
-              </h4>
-              <input
-                type="radio"
-                name="type"
-                value="income"
-              />
             </li>
           </ul>
 
