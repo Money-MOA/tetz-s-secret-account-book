@@ -104,8 +104,9 @@ const drawChart = () => {
 };
 
 watch(
-  () => props.chartData,
+  () => [...props.chartData], // 얕은 복사해서 배열 값 변화 감지
   async () => {
+    if (!props.chartData.length) return; // 데이터 없으면 차트 그리지 않음
     await nextTick();
     drawChart();
   },
