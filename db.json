@@ -77,348 +77,42 @@
   ],
   "history": [
     {
-      "id": "1",
+      "id": "7ff4",
       "userId": "1",
       "date": "2025-04-01",
       "month": 1,
-      "week": 1,
+      "type": "outcome",
+      "category": "식비",
+      "memo": "22",
+      "price": 22
+    },
+    {
+      "id": "091b",
+      "userId": "1",
+      "date": "2025-04-01",
+      "month": 1,
       "type": "income",
-      "category": "월급",
-      "memo": "친구 모임 가려고 함",
-      "price": 2000000
-    },
-    {
-      "id": "2",
-      "userId": "1",
-      "date": "2025-04-01",
-      "month": 1,
-      "week": 1,
-      "type": "outcome",
-      "category": "식비",
-      "memo": "아파트 정비",
-      "price": 10000
-    },
-    {
-      "id": "3",
-      "userId": "1",
-      "date": "2025-04-02",
-      "month": 1,
-      "week": 1,
-      "type": "outcome",
-      "category": "식비",
-      "memo": "라멘 먹기 맛있당",
-      "price": 100000
+      "category": "주거비",
+      "memo": "1",
+      "price": 1
     }
   ],
   "monthlyExpense": [
     {
-      "id": "1",
+      "id": "28b1",
       "userId": "1",
       "month": 1,
-      "accumulatedExpense": 10000
-    },
-    {
-      "id": "2",
-      "userId": "1",
-      "month": 2,
-      "accumulatedExpense": 21000
-    }
-  ],
-  "weeklyExpense": [
-    {
-      "id": "1",
-      "userId": "1",
-      "month": 1,
-      "week": 1,
-      "outcome": 10000
-    },
-    {
-      "id": "2",
-      "userId": "1",
-      "month": 1,
-      "week": 2,
-      "outcome": 30000
+      "accumulatedExpense": 48
     }
   ],
   "dailyExpense": [
     {
-      "id": "1",
+      "id": "e7f6",
       "userId": "1",
       "date": "2025-04-01",
-      "income": 0,
-      "outcome": 15000,
-      "balance": -15000,
-      "week": 1
-    },
-    {
-      "id": "2",
-      "userId": "1",
-      "date": "2025-04-02",
-      "income": 0,
-      "outcome": 22000,
-      "balance": -22000,
-      "week": 1
-    },
-    {
-      "id": "3",
-      "userId": "1",
-      "date": "2025-04-03",
-      "income": 0,
-      "outcome": 10000,
-      "balance": -10000,
-      "week": 1
-    },
-    {
-      "id": "4",
-      "userId": "1",
-      "date": "2025-04-04",
-      "income": 0,
-      "outcome": 30000,
-      "balance": -30000,
-      "week": 1
-    },
-    {
-      "id": "5",
-      "userId": "1",
-      "date": "2025-04-05",
-      "income": 0,
-      "outcome": 50600,
-      "balance": -50600,
-      "week": 1
-    },
-    {
-      "id": "6",
-      "userId": "1",
-      "date": "2025-04-06",
-      "income": 120000,
-      "outcome": 25000,
-      "balance": 95000,
-      "week": 1
-    },
-    {
-      "id": "7",
-      "userId": "1",
-      "date": "2025-04-07",
-      "income": 0,
-      "outcome": 18000,
-      "balance": -18000,
-      "week": 1
-    },
-    {
-      "id": "8",
-      "userId": "1",
-      "date": "2025-04-08",
-      "income": 0,
-      "outcome": 10000,
-      "balance": -10000,
-      "week": 2
-    },
-    {
-      "id": "9",
-      "userId": "1",
-      "date": "2025-04-09",
-      "income": 0,
-      "outcome": 35000,
-      "balance": -35000,
-      "week": 2
-    },
-    {
-      "id": "10",
-      "userId": "1",
-      "date": "2025-04-10",
-      "income": 0,
-      "outcome": 16000,
-      "balance": -16000,
-      "week": 2
-    },
-    {
-      "id": "11",
-      "userId": "1",
-      "date": "2025-04-11",
-      "income": 0,
-      "outcome": 12000,
-      "balance": -12000,
-      "week": 2
-    },
-    {
-      "id": "12",
-      "userId": "1",
-      "date": "2025-04-12",
-      "income": 0,
-      "outcome": 8000,
-      "balance": -8000,
-      "week": 2
-    },
-    {
-      "id": "13",
-      "userId": "1",
-      "date": "2025-04-13",
-      "income": 90000,
-      "outcome": 27000,
-      "balance": 63000,
-      "week": 2
-    },
-    {
-      "id": "14",
-      "userId": "1",
-      "date": "2025-04-14",
-      "income": 0,
-      "outcome": 19000,
-      "balance": -19000,
-      "week": 2
-    },
-    {
-      "id": "15",
-      "userId": "1",
-      "date": "2025-04-15",
-      "income": 0,
-      "outcome": 23000,
-      "balance": -23000,
-      "week": 3
-    },
-    {
-      "id": "16",
-      "userId": "1",
-      "date": "2025-04-16",
-      "income": 0,
-      "outcome": 17000,
-      "balance": -17000,
-      "week": 3
-    },
-    {
-      "id": "17",
-      "userId": "1",
-      "date": "2025-04-17",
-      "income": 0,
-      "outcome": 45000,
-      "balance": -45000,
-      "week": 3
-    },
-    {
-      "id": "18",
-      "userId": "1",
-      "date": "2025-04-18",
-      "income": 0,
-      "outcome": 6000,
-      "balance": -6000,
-      "week": 3
-    },
-    {
-      "id": "19",
-      "userId": "1",
-      "date": "2025-04-19",
-      "income": 0,
-      "outcome": 9000,
-      "balance": -9000,
-      "week": 3
-    },
-    {
-      "id": "20",
-      "userId": "1",
-      "date": "2025-04-20",
-      "income": 150000,
-      "outcome": 30000,
-      "balance": 120000,
-      "week": 3
-    },
-    {
-      "id": "21",
-      "userId": "1",
-      "date": "2025-04-21",
-      "income": 0,
-      "outcome": 26000,
-      "balance": -26000,
-      "week": 3
-    },
-    {
-      "id": "22",
-      "userId": "1",
-      "date": "2025-04-22",
-      "income": 0,
-      "outcome": 18000,
-      "balance": -18000,
-      "week": 4
-    },
-    {
-      "id": "23",
-      "userId": "1",
-      "date": "2025-04-23",
-      "income": 0,
-      "outcome": 22000,
-      "balance": -22000,
-      "week": 4
-    },
-    {
-      "id": "24",
-      "userId": "1",
-      "date": "2025-04-24",
-      "income": 0,
-      "outcome": 16000,
-      "balance": -16000,
-      "week": 4
-    },
-    {
-      "id": "25",
-      "userId": "1",
-      "date": "2025-04-25",
-      "income": 0,
-      "outcome": 20000,
-      "balance": -20000,
-      "week": 4
-    },
-    {
-      "id": "26",
-      "userId": "1",
-      "date": "2025-04-26",
-      "income": 0,
-      "outcome": 14000,
-      "balance": -14000,
-      "week": 4
-    },
-    {
-      "id": "27",
-      "userId": "1",
-      "date": "2025-04-27",
-      "income": 100000,
-      "outcome": 31000,
-      "balance": 69000,
-      "week": 4
-    },
-    {
-      "id": "28",
-      "userId": "1",
-      "date": "2025-04-28",
-      "income": 0,
-      "outcome": 17000,
-      "balance": -17000,
-      "week": 4
-    },
-    {
-      "id": "29",
-      "userId": "1",
-      "date": "2025-04-29",
-      "income": 0,
-      "outcome": 9000,
-      "balance": -9000,
-      "week": 5
-    },
-    {
-      "id": "30",
-      "userId": "1",
-      "date": "2025-04-30",
-      "income": 0,
-      "outcome": 12000,
-      "balance": -12000,
-      "week": 5
-    },
-    {
-      "id": "31",
-      "userId": "1",
-      "date": "2025-04-31",
-      "income": 0,
-      "outcome": 27000,
-      "balance": -27000,
-      "week": 5
+      "income": 1,
+      "outcome": 22,
+      "balance": -15
     }
   ]
 }
