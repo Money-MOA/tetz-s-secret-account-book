@@ -45,12 +45,12 @@ const chartData = reactive({
     {
       label: '수입',
       data: [],
-      backgroundColor: '#4caf50',
+      backgroundColor: '#1cdc9f',
     },
     {
       label: '지출',
       data: [],
-      backgroundColor: '#f44336',
+      backgroundColor: '#f87171',
     },
   ],
 });
@@ -76,21 +76,21 @@ const totalOutcome = ref(0);
 
 onMounted(async () => {
   const today = new Date();
-  const month = today.getMonth() + 1;
-  const week = Math.ceil(today.getDate() / 7);
+  const sevenDaysAgo = new Date();
+  sevenDaysAgo.setDate(today.getDate() - 6); // 오늘 포함 7일
 
-  const res = await axios.get(
-    `http://localhost:3000/dailyExpense?userId=1&month=${month}`
-  );
-  const thisMonthData = res.data;
+  const res = await axios.get(`http://localhost:3000/dailyExpense?userId=1`);
 
-  const thisWeekData = thisMonthData.filter(
-    (item) => Number(item.week) === week
-  );
+  const allData = res.data;
+
+  const thisWeekData = allData.filter((item) => {
+    const itemDate = new Date(item.date);
+    return itemDate >= sevenDaysAgo && itemDate <= today;
+  });
 
   chartData.labels =
     thisWeekData.length > 0
-      ? thisWeekData.map((item) => item.date.slice(5))
+      ? thisWeekData.map((item) => item.date.slice(5)) // MM-DD 형태
       : ['데이터 없음'];
 
   chartData.datasets[0].data =
@@ -107,6 +107,7 @@ onMounted(async () => {
     (sum, item) => sum + Number(item.income),
     0
   );
+
   totalOutcome.value = thisWeekData.reduce(
     (sum, item) => sum + Number(item.outcome),
     0
@@ -115,19 +116,15 @@ onMounted(async () => {
   const maxIncome = Math.max(
     ...thisWeekData.map((item) => Number(item.income))
   );
+
   const maxOutcome = Math.max(
     ...thisWeekData.map((item) => Number(item.outcome))
   );
+
   const maxY =
     Math.ceil(Math.max(maxIncome, maxOutcome) / 10000) * 10000 + 10000;
 
-  chartOptions.scales = {
-    ...chartOptions.scales,
-    y: {
-      ...chartOptions.scales.y,
-      suggestedMax: maxY,
-    },
-  };
+  chartOptions.scales.y.suggestedMax = maxY;
 });
 </script>
 

@@ -9,23 +9,23 @@
 
     <!-- 범례 -->
     <div
-      class="self-center ml-[3rem] space-y-[1rem] p-[1.5rem] w-[12rem] rounded-[0.5rem] bg-[#f9fafb] shadow-md border border-[#d1d5db]"
+      class="self-center ml-[3rem] space-y-[1rem] p-[1.5rem] w-[14rem] rounded-[0.5rem] bg-[#f9fafb] shadow-md border border-[#d1d5db]"
     >
       <div
         v-for="(item, index) in chartData"
         :key="item.category"
-        class="flex items-center justify-between gap-3"
+        class="flex items-center justify-between gap-[1.5rem]"
       >
         <div class="flex items-center gap-[12px]">
           <span
             class="w-[16px] h-[16px] rounded-full inline-block"
             :style="{ backgroundColor: colors[index % colors.length] }"
           ></span>
-          <span class="text-sm font-medium text-gray-800">
+          <span class="text-sm font-medium text-gray-800 whitespace-nowrap">
             {{ item.category }}
           </span>
         </div>
-        <span class="text-sm font-semibold text-gray-900">
+        <span class="text-sm font-semibold text-gray-900 whitespace-nowrap">
           {{ formatPrice(item.amount) }} 원
         </span>
       </div>
@@ -104,8 +104,9 @@ const drawChart = () => {
 };
 
 watch(
-  () => props.chartData,
+  () => [...props.chartData], // 얕은 복사해서 배열 값 변화 감지
   async () => {
+    if (!props.chartData.length) return; // 데이터 없으면 차트 그리지 않음
     await nextTick();
     drawChart();
   },
