@@ -37,7 +37,7 @@
           class="pl-[0.5rem] w-[25rem] h-[2.2rem] mb-[1rem] text-[1rem] border border-[0.1rem] border-[#c3c3c3] rounded-full self-center"
         />
       </div>
-      <div class="flex justify-end">
+      <div class="flex justify-center">
         <button
           @click="signup"
           class="w-[5rem] h-[2rem] bg-[#169976] text-[#ffffff] text-[0.7rem] rounded-full border-none shadow-none"
@@ -62,9 +62,14 @@ const userId = ref('');
 const password = ref('');
 
 async function signup() {
+  // 이름 길이 제한: 4글자 이상 불가
+  if (nickname.value.length > 3) {
+    alert('이름은 3글자까지만 입력 가능합니다.');
+    return;
+  }
+
   try {
     const userUrl = BASE_URL + '/user';
-    // 회원가입 유저 아이디
     const signupData = {
       userId: userId.value,
       password: password.value,
@@ -83,7 +88,7 @@ async function signup() {
     };
     const signupRes = await axios.post(userUrl, signupData);
     console.log(signupRes);
-    router.push({ name: 'main' });
+    router.push({ name: '/' });
   } catch (e) {
     console.error(e);
   }

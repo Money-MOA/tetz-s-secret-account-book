@@ -73,6 +73,88 @@
           "amount": 0
         }
       ]
+    },
+    {
+      "id": "25ce",
+      "userId": "1234",
+      "password": "1234",
+      "nickname": "하히아",
+      "hopeExpense": 0,
+      "plannedMonthlyExpenseByCategory": [
+        {
+          "category": "식비",
+          "amount": 0
+        },
+        {
+          "category": "교통비",
+          "amount": 0
+        },
+        {
+          "category": "주거비",
+          "amount": 0
+        },
+        {
+          "category": "여가비",
+          "amount": 0
+        },
+        {
+          "category": "의료비",
+          "amount": 0
+        },
+        {
+          "category": "문화비",
+          "amount": 0
+        },
+        {
+          "category": "교육비",
+          "amount": 0
+        },
+        {
+          "category": "기타",
+          "amount": 0
+        }
+      ]
+    },
+    {
+      "id": "15f6",
+      "userId": "12",
+      "password": "1234",
+      "nickname": "123",
+      "hopeExpense": 0,
+      "plannedMonthlyExpenseByCategory": [
+        {
+          "category": "식비",
+          "amount": 0
+        },
+        {
+          "category": "교통비",
+          "amount": 0
+        },
+        {
+          "category": "주거비",
+          "amount": 0
+        },
+        {
+          "category": "여가비",
+          "amount": 0
+        },
+        {
+          "category": "의료비",
+          "amount": 0
+        },
+        {
+          "category": "문화비",
+          "amount": 0
+        },
+        {
+          "category": "교육비",
+          "amount": 0
+        },
+        {
+          "category": "기타",
+          "amount": 0
+        }
+      ]
     }
   ],
   "history": [],
