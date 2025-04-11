@@ -23,7 +23,7 @@
         MOA <br />
       </p>
       <p
-        class="text-[2rem] text-[white] leading-tight font-bold righteous-regular"
+        class="text-[1.4rem] text-[white] leading-tight font-bold righteous-regular"
       >
         모두가 자산을 모을 때까지 MOA와 함께하세요
       </p>

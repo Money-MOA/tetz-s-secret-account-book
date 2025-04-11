@@ -14,41 +14,186 @@
         </h1>
       </RouterLink>
 
-      <!-- 오른쪽: 로그인 / 회원가입 버튼 (로그인 안 했을 때만 보임) -->
-      <div
-        v-if="!isLoggedIn"
-        class="flex flex-[row] gap-[0.5rem]"
-      >
-        <button
-          class="text-[1rem] px-[0.75rem] py-[0.5rem] rounded-[0.5rem] text-[black] bg-[gray-500 transition border-[0]"
-        >
+      <!-- 데스크탑: 로그인/회원가입 or 로그아웃 -->
+      <div class="desktop-only items-center gap-[1rem]">
+        <template v-if="!isLoggedIn">
           <RouterLink
             to="/login"
-            class="no-underline text-[#222222]"
-            >로그인</RouterLink
+            class="text-[#222222] text-[1rem] px-[0.75rem] py-[0.5rem] rounded-[0.5rem] bg-gray-500 no-underline"
           >
-        </button>
-        <button
-          class="text-[1rem] px-[0.5rem] py-[0.5rem] rounded-[0.5rem] text-[white] bg-[#1cdc9f] transition border-[0]"
-        >
+            로그인
+          </RouterLink>
           <RouterLink
             to="/signup"
-            class="no-underline text-white"
-            >회원가입</RouterLink
+            class="text-white text-[1rem] px-[0.5rem] py-[0.5rem] rounded-[0.5rem] bg-[#1cdc9f] no-underline"
           >
-        </button>
+            회원가입
+          </RouterLink>
+        </template>
+        <template v-else>
+          <span class="text-[1rem]"
+            >{{ nickname }}님 !</span
+          >
+          <button
+            @click="logout"
+            class="text-white border-[0] text-[1rem] px-[0.5rem] py-[0.5rem] rounded-[0.5rem] bg-[#1cdc9f]"
+          >
+            로그아웃
+          </button>
+        </template>
       </div>
 
-      <!-- 로그인 후: 환영 메시지 + 로그아웃 버튼 (로그인 했을 때만 보임) -->
-      <div v-else class="flex items-center gap-[1rem]">
-        <span class="text-[1rem]">{{ nickname }}님 !</span>
-
+      <!-- 모바일: 햄버거 메뉴 -->
+      <div id="snb" class="mobile-only relative">
         <button
-          @click="logout"
-          class="text-[1rem] px-[0.5rem] py-[0.5rem] rounded-[0.5rem] text-[white] bg-[#1cdc9f] transition border-[0]"
+          @click="toggleMenu"
+          class="btn_menu text-[1.7rem] text-black bg-[white] border-[0]"
         >
-          로그아웃
+          <i class="fas fa-bars"></i>
         </button>
+        <ul
+          class="sub_menu absolute top-[3.5rem] right-0 flex-col bg-white rounded shadow-md p-4 z-[100] min-w-[160px] transition-all duration-300"
+          :class="{ hide: isMenuHidden }"
+        >
+          <template v-if="!isLoggedIn">
+            <nav
+              class="flex items-center flex-col gap-[2rem] mt-[2rem] ml-[0.7rem]"
+            >
+              <RouterLink
+                to="/login"
+                class="text-[#222222] text-[1rem] px-[1.5rem] py-[0.5rem] rounded-[0.5rem] bg-[#c1c1c1] no-underline"
+              >
+                로그인
+              </RouterLink>
+              <RouterLink
+                to="/signup"
+                class="text-white text-[1rem] px-[1rem] py-[0.5rem] rounded-[0.5rem] bg-[#1cdc9f] no-underline"
+              >
+                회원가입
+              </RouterLink>
+            </nav>
+          </template>
+          <template v-else>
+            <nav
+              class="flex flex-col gap-[2rem] mt-[2rem] ml-[0.7rem]"
+            >
+              <RouterLink
+                :to="{ name: 'main', params: { id: id } }"
+                class="flex items-center gap-[0.8rem] font-semibold bg-white border-0 no-underline hover:text-[#1CDC9F] transition"
+              >
+                <i
+                  class="fas fa-home text-[1.2rem] leading-none"
+                  :class="
+                    isActive(`/main/${id}`)
+                      ? 'text-[#1CDC9F]'
+                      : 'text-[#222]'
+                  "
+                ></i>
+                <span
+                  class="text-[1.2rem] leading-none"
+                  :class="
+                    isActive(`/main/${id}`)
+                      ? 'text-[#1CDC9F]'
+                      : 'text-[#222]'
+                  "
+                >
+                  Main
+                </span>
+              </RouterLink>
+
+              <RouterLink
+                :to="{
+                  name: 'calendar',
+                  params: { id: id },
+                }"
+                class="flex items-center gap-[0.8rem] font-semibold bg-white border-0 no-underline hover:text-[#1CDC9F] transition"
+              >
+                <i
+                  class="fas fa-calendar-alt text-[1.2rem] leading-none"
+                  :class="
+                    isActive(`/calendar/${id}`)
+                      ? 'text-[#1CDC9F]'
+                      : 'text-[#222]'
+                  "
+                ></i>
+                <span
+                  class="text-[1.2rem] leading-none"
+                  :class="
+                    isActive(`/calendar/${id}`)
+                      ? 'text-[#1CDC9F]'
+                      : 'text-[#222]'
+                  "
+                >
+                  Calendar
+                </span>
+              </RouterLink>
+
+              <RouterLink
+                :to="{
+                  name: 'expenseGraph',
+                  params: { id: id },
+                }"
+                class="flex items-center gap-[0.8rem] font-semibold bg-white border-0 no-underline hover:text-[#1CDC9F] transition"
+              >
+                <i
+                  class="fas fa-chart-bar text-[1.2rem] leading-none"
+                  :class="
+                    isActive(`/expenseGraph/${id}`)
+                      ? 'text-[#1CDC9F]'
+                      : 'text-[#222]'
+                  "
+                ></i>
+                <span
+                  class="text-[1.2rem] leading-none"
+                  :class="
+                    isActive(`/expenseGraph/${id}`)
+                      ? 'text-[#1CDC9F]'
+                      : 'text-[#222]'
+                  "
+                >
+                  Graph
+                </span>
+              </RouterLink>
+
+              <RouterLink
+                :to="{ name: 'my', params: { id: id } }"
+                class="flex items-center gap-[0.8rem] font-semibold bg-white border-0 no-underline hover:text-[#1CDC9F] transition"
+              >
+                <i
+                  class="fas fa-user text-[1.2rem] leading-none"
+                  :class="
+                    isActive(`/my/${id}`)
+                      ? 'text-[#1CDC9F]'
+                      : 'text-[#222]'
+                  "
+                ></i>
+                <span
+                  class="text-[1.2rem] leading-none"
+                  :class="
+                    isActive(`/my/${id}`)
+                      ? 'text-[#1CDC9F]'
+                      : 'text-[#222]'
+                  "
+                >
+                  User
+                </span>
+              </RouterLink>
+              <span
+                class="text-white border-[0] text-[1rem] px-[1.2rem] py-[0.5rem] rounded-[0.5rem] bg-[#c1c1c1]"
+              >
+                {{ nickname }}님
+              </span>
+              <span>
+                <button
+                  @click="logout"
+                  class="text-white border-[0] text-[1rem] px-[1.2rem] py-[0.5rem] rounded-[0.5rem] bg-[#1cdc9f]"
+                >
+                  로그아웃
+                </button>
+              </span>
+            </nav>
+          </template>
+        </ul>
       </div>
     </div>
   </header>
@@ -64,9 +209,11 @@ import {
 import { useRoute, useRouter } from 'vue-router';
 
 const router = useRouter();
-// 로컬 스토리지에서 userId를 가져오기
+const curRoute = useRoute();
+const id = computed(() => curRoute.params.id);
+const isActive = (path) => curRoute.path === path;
+
 const userId = localStorage.getItem('userId');
-// 로그인 상태와 닉네임을 ref로 관리
 const isLoggedIn = ref(
   localStorage.getItem('auth') === 'true'
 );
@@ -74,59 +221,100 @@ const nickname = ref(
   localStorage.getItem('nickname') || ''
 );
 
-// 로고 클릭 시 이동할 링크 계산
-const logoLink = computed(() => {
-  if (userId) {
-    // 로그인된 상태라면 userId를 포함한 /main 경로로 이동
-    return { name: 'main', params: { id: userId } };
-  } else {
-    // 로그인되지 않았다면 홈으로 이동
-    return '/';
-  }
-});
-
-// storage 이벤트 리스너로 값 변경 감지
-const handleStorageChange = (event) => {
-  if (event.key === 'auth') {
-    isLoggedIn.value = event.newValue === 'true';
-  }
-  if (event.key === 'nickname') {
-    nickname.value = event.newValue;
-  }
+// 햄버거 메뉴 상태
+const isMenuHidden = ref(true);
+const toggleMenu = () => {
+  isMenuHidden.value = !isMenuHidden.value;
 };
 
-// 라우트가 변경될 때마다 로그인 상태 확인
+const logoLink = computed(() => {
+  return userId
+    ? { name: 'main', params: { id: userId } }
+    : '/';
+});
+
+const handleStorageChange = (event) => {
+  if (event.key === 'auth')
+    isLoggedIn.value = event.newValue === 'true';
+  if (event.key === 'nickname')
+    nickname.value = event.newValue;
+};
+
 const checkLoginStatus = () => {
   isLoggedIn.value =
     localStorage.getItem('auth') === 'true';
   nickname.value = localStorage.getItem('nickname') || '';
 };
 
-// 로그인 상태 확인 (처음 로드 시)
 onMounted(() => {
-  window.addEventListener('storage', handleStorageChange); // 다른 탭에서의 변경 감지
-  checkLoginStatus(); // 처음 로딩 시 상태 확인
-
-  // 라우트 변경시 로그인 상태 체크
-  router.afterEach(() => {
-    checkLoginStatus();
-  });
+  window.addEventListener('storage', handleStorageChange);
+  checkLoginStatus();
+  router.afterEach(() => checkLoginStatus());
 });
 
 onBeforeUnmount(() => {
   window.removeEventListener(
     'storage',
     handleStorageChange
-  ); // 컴포넌트가 파괴될 때 이벤트 제거
+  );
 });
 
-// 로그아웃 처리
 const logout = () => {
-  localStorage.setItem('auth', 'false'); // localStorage에서 auth 값 'false'로 설정
+  localStorage.setItem('auth', 'false');
   localStorage.removeItem('userId');
-  localStorage.removeItem('nickname'); // 닉네임 정보도 제거
-  isLoggedIn.value = false; // 로그아웃 상태로 변경
-  nickname.value = ''; // 닉네임 초기화
-  router.push('/'); // 로그아웃 후 메인 페이지로 이동
+  localStorage.removeItem('nickname');
+  isLoggedIn.value = false;
+  nickname.value = '';
+  router.push('/');
 };
 </script>
+
+<style scoped>
+.sub_menu {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  display: flex;
+  justify-content: center;
+}
+
+.sub_menu.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.mobile-only {
+  display: none;
+}
+
+.desktop-only {
+  display: flex;
+}
+
+/* 모바일 반응형 */
+@media screen and (max-width: 768px) {
+  .desktop-only {
+    display: none;
+  }
+  .mobile-only {
+    display: block;
+  }
+
+  #snb .sub_menu {
+    flex-direction: column;
+    position: absolute;
+    padding: 10px 15px;
+    background-color: rgb(59, 59, 59);
+    border: 1px solid #999;
+    border-radius: 10px;
+    right: 1vw;
+    text-align: right;
+    z-index: 100;
+  }
+
+  #snb .sub_menu.hide {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+</style>
