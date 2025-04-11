@@ -1,13 +1,19 @@
 <template>
   <div class="today-summary">
     <h3 class="today-title">Today</h3>
-    <div class="income-box">
-      <span class="label">수입</span>
-      <div class="amount positive">+ {{ incomeAmount }}원</div>
-    </div>
-    <div class="outcome-box">
-      <span class="label">지출</span>
-      <div class="amount negative">- {{ outcomeAmount }}원</div>
+    <div class="">
+      <div class="income-box">
+        <span class="label">수입</span>
+        <div class="amount positive">
+          + {{ incomeAmount }}원
+        </div>
+      </div>
+      <div class="outcome-box">
+        <span class="label">지출</span>
+        <div class="amount negative">
+          - {{ outcomeAmount }}원
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -24,7 +30,9 @@ const today = new Date().toISOString().split('T')[0]; // "2025-04-10" 형태로
 
 const fetchTodayData = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/dailyExpense'); // db.json 데이터 가져오기
+    const response = await axios.get(
+      'http://localhost:3000/dailyExpense'
+    ); // db.json 데이터 가져오기
     const dailyExpense = response.data;
     const todayData = dailyExpense.find(
       (data: { date: string }) => data.date === today
@@ -35,7 +43,10 @@ const fetchTodayData = async () => {
       outcomeAmount.value = todayData.outcome;
     }
   } catch (error) {
-    console.error('데이터를 가져오는 중 오류가 발생했습니다.', error);
+    console.error(
+      '데이터를 가져오는 중 오류가 발생했습니다.',
+      error
+    );
   }
 };
 
@@ -45,6 +56,11 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.flex-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
 .today-summary {
   display: flex;
   flex-direction: column;
@@ -63,7 +79,7 @@ onMounted(() => {
   font-weight: bold;
   color: #333;
   margin-bottom: 2rem;
-  text-align: center;
+  text-align: left;
   position: relative;
   margin-top: -2rem; /* 제목을 위로 올리기 */
   z-index: 1; /* 제목이 박스 위로 오게끔 */
@@ -73,13 +89,13 @@ onMounted(() => {
 .income-box,
 .outcome-box {
   flex-direction: column;
-  align-items: center;
+  align-items: right;
   padding: 1rem 2rem;
   border-radius: 10px;
   margin-bottom: 1rem;
   width: 100%;
-  max-width: 300px;
-  text-align: center;
+  max-width: 350px;
+  text-align: right;
   transition: background-color 0.3s, transform 0.3s;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin: 0 auto; /* 수평 중앙 정렬 */

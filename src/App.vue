@@ -4,7 +4,6 @@
 
     <!-- 로그인 상태에 따라 Sidebar 표시 여부 결정 -->
     <Sidebar v-if="showSidebar" />
-
     <main
       class="pt-[100px]"
       :class="showSidebar ? 'pl-[220px]' : ''"

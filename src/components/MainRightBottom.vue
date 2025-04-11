@@ -10,7 +10,9 @@
     <div class="box">
       <div class="title">이번달 사용 가능한 금액</div>
       <div class="amount">
-        <span class="value">{{ totalIncomeThisMonth }}원</span>
+        <span class="value"
+          >{{ totalIncomeThisMonth }}원</span
+        >
       </div>
     </div>
   </div>
@@ -34,7 +36,9 @@ const lastWeekDate = lastWeek.toISOString().split('T')[0]; // "2025-04-03" 형�
 // 오늘과 저번주의 금액을 비교하는 함수
 const fetchComparisonData = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/dailyExpense'); // db.json 데이터 가져오기
+    const response = await axios.get(
+      'http://localhost:3000/dailyExpense'
+    ); // db.json 데이터 가져오기
     const dailyExpense = response.data;
 
     // 오늘과 저번주 데이터를 찾기
@@ -74,7 +78,10 @@ const fetchComparisonData = async () => {
 
     totalIncomeThisMonth.value = totalIncome; // 총 수입 값 저장
   } catch (error) {
-    console.error('데이터를 가져오는 중 오류가 발생했습니다.', error);
+    console.error(
+      '데이터를 가져오는 중 오류가 발생했습니다.',
+      error
+    );
   }
 };
 
@@ -88,6 +95,7 @@ onMounted(() => {
 .main-right-bottom {
   display: flex;
   flex-direction: column;
+  justify-content: center; /* 수직 중앙 정렬 */
   gap: 20px;
   width: 100%;
   max-width: 500px; /* 최대 너비 */
@@ -96,6 +104,7 @@ onMounted(() => {
 
 .box {
   background-color: #fff;
+  margin-top: 1rem;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
