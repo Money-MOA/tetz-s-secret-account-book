@@ -178,11 +178,14 @@ const userId = route.params.id;
 
 const dropOn = ref(false);
 const category = ref('식비');
-const price = ref(0);
+const price = ref(null);
 const memo = ref('');
 const type = ref('');
 const income = ref('');
+const exIncome = ref(null);
 const outcome = ref('');
+const exOutcome = ref(null);
+const selectedHistory = ref('');
 
 const modalStore = useModalStore();
 const visible = computed(() => modalStore.isModalVisible);
@@ -218,12 +221,15 @@ watch(visible, (newVal) => {
 });
 
 function fillData(history) {
+  selectedHistory.value = history.id;
   category.value = history.category;
   price.value = history.price;
   memo.value = history.memo;
   type.value = history.type;
   income.value = type.value == 'income' ? price.value : 0;
   outcome.value = type.value == 'outcome' ? price.value : 0;
+  exIncome.value = type.value == 'income' ? price.value : 0;
+  exOutcome.value = type.value == 'outcome' ? price.value : 0;
   console.log(income.value);
 }
 
@@ -299,15 +305,11 @@ async function updateData() {
     income.value = type.value == 'income' ? price.value : 0;
     outcome.value = type.value == 'outcome' ? price.value : 0;
 
-    const hRes = await axios.get(
-      `${historyUrl}?userId=${userId}&date=${props.date}&memo=${memo.value}`
-    );
-    console.log(hRes.data);
-    const mRes = await axios.get(
-      `${monthlyUrl}?userId=${userId}&month=${month}`
-    );
     const dRes = await axios.get(
       `${dailyUrl}?userId=${userId}&date=${props.date}`
+    );
+    const mRes = await axios.get(
+      `${monthlyUrl}?userId=${userId}&month=${month}`
     );
 
     const hData = {
@@ -317,20 +319,25 @@ async function updateData() {
       price: price.value,
     };
     const mData = {
-      accumulatedExpense: mRes.data[0].accumulatedExpense,
+      accumulatedExpense:
+        mRes.data[0].accumulatedExpense + outcome.value - exOutcome.value,
     };
     const dData = {
-      income: dRes.data[0].income + income.value,
-      outcome: dRes.data[0].outcome + outcome.value,
+      income: dRes.data[0].income + income.value - exIncome.value,
+      outcome: dRes.data[0].outcome + outcome.value - exOutcome.value,
       balance:
         dRes.data[0].income +
         income.value -
-        (dRes.data[0].outcome + outcome.value),
+        exIncome.value -
+        (dRes.data[0].outcome + outcome.value - exOutcome.value),
     };
 
-    await axios.patch(`${historyUrl}/${hRes.data[0].id}`, hData);
     await axios.patch(`${monthlyUrl}/${mRes.data[0].id}`, mData);
+    console.log('monthly 업데이트');
     await axios.patch(`${dailyUrl}/${dRes.data[0].id}`, dData);
+    console.log('daily 업데이트');
+    await axios.patch(`${historyUrl}/${selectedHistory.value}`, hData);
+    console.log('history 업데이트');
   } catch (e) {
     console.error(e);
   }
