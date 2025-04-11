@@ -78,7 +78,8 @@
               class="flex flex-col gap-[2rem] mt-[2rem] ml-[0.7rem]"
             >
               <RouterLink
-                :to="{ name: 'main', params: { id: id } }"
+                v-if="id"
+                :to="{ name: 'main', params: { id } }"
                 class="flex items-center gap-[0.8rem] font-semibold bg-white border-0 no-underline hover:text-[#1CDC9F] transition"
               >
                 <i
@@ -96,16 +97,13 @@
                       ? 'text-[#1CDC9F]'
                       : 'text-[#222]'
                   "
+                  >Main</span
                 >
-                  Main
-                </span>
               </RouterLink>
 
               <RouterLink
-                :to="{
-                  name: 'calendar',
-                  params: { id: id },
-                }"
+                v-if="id"
+                :to="{ name: 'calendar', params: { id } }"
                 class="flex items-center gap-[0.8rem] font-semibold bg-white border-0 no-underline hover:text-[#1CDC9F] transition"
               >
                 <i
@@ -123,15 +121,15 @@
                       ? 'text-[#1CDC9F]'
                       : 'text-[#222]'
                   "
+                  >Calendar</span
                 >
-                  Calendar
-                </span>
               </RouterLink>
 
               <RouterLink
+                v-if="id"
                 :to="{
                   name: 'expenseGraph',
-                  params: { id: id },
+                  params: { id },
                 }"
                 class="flex items-center gap-[0.8rem] font-semibold bg-white border-0 no-underline hover:text-[#1CDC9F] transition"
               >
@@ -150,13 +148,13 @@
                       ? 'text-[#1CDC9F]'
                       : 'text-[#222]'
                   "
+                  >Graph</span
                 >
-                  Graph
-                </span>
               </RouterLink>
 
               <RouterLink
-                :to="{ name: 'my', params: { id: id } }"
+                v-if="id"
+                :to="{ name: 'my', params: { id } }"
                 class="flex items-center gap-[0.8rem] font-semibold bg-white border-0 no-underline hover:text-[#1CDC9F] transition"
               >
                 <i
@@ -174,15 +172,14 @@
                       ? 'text-[#1CDC9F]'
                       : 'text-[#222]'
                   "
+                  >User</span
                 >
-                  User
-                </span>
               </RouterLink>
+
               <span
                 class="text-white border-[0] text-[1rem] px-[1.2rem] py-[0.5rem] rounded-[0.5rem] bg-[#c1c1c1]"
+                >{{ nickname }}님</span
               >
-                {{ nickname }}님
-              </span>
               <span>
                 <button
                   @click="logout"
@@ -201,19 +198,20 @@
 
 <script setup>
 import {
+  ref,
   computed,
   onMounted,
   onBeforeUnmount,
-  ref,
 } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const router = useRouter();
 const curRoute = useRoute();
-const id = computed(() => curRoute.params.id);
+
+// 사용자 ID는 localStorage 기준으로 설정
+const id = ref(localStorage.getItem('userId') || null);
 const isActive = (path) => curRoute.path === path;
 
-const userId = localStorage.getItem('userId');
 const isLoggedIn = ref(
   localStorage.getItem('auth') === 'true'
 );
@@ -221,15 +219,14 @@ const nickname = ref(
   localStorage.getItem('nickname') || ''
 );
 
-// 햄버거 메뉴 상태
 const isMenuHidden = ref(true);
 const toggleMenu = () => {
   isMenuHidden.value = !isMenuHidden.value;
 };
 
 const logoLink = computed(() => {
-  return userId
-    ? { name: 'main', params: { id: userId } }
+  return id.value
+    ? { name: 'main', params: { id: id.value } }
     : '/';
 });
 
@@ -238,12 +235,14 @@ const handleStorageChange = (event) => {
     isLoggedIn.value = event.newValue === 'true';
   if (event.key === 'nickname')
     nickname.value = event.newValue;
+  if (event.key === 'userId') id.value = event.newValue;
 };
 
 const checkLoginStatus = () => {
   isLoggedIn.value =
     localStorage.getItem('auth') === 'true';
   nickname.value = localStorage.getItem('nickname') || '';
+  id.value = localStorage.getItem('userId') || null;
 };
 
 onMounted(() => {
@@ -265,6 +264,7 @@ const logout = () => {
   localStorage.removeItem('nickname');
   isLoggedIn.value = false;
   nickname.value = '';
+  id.value = null;
   router.push('/');
 };
 </script>
@@ -291,7 +291,6 @@ const logout = () => {
   display: flex;
 }
 
-/* 모바일 반응형 */
 @media screen and (max-width: 1000px) {
   .desktop-only {
     display: none;
