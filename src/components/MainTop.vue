@@ -45,12 +45,12 @@ const chartData = reactive({
     {
       label: '수입',
       data: [],
-      backgroundColor: '#4caf50',
+      backgroundColor: '#1cdc9f',
     },
     {
       label: '지출',
       data: [],
-      backgroundColor: '#f44336',
+      backgroundColor: '#f87171',
     },
   ],
 });
