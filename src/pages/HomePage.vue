@@ -10,7 +10,7 @@
       autoplay
       muted
       loop
-      class="w-full h-full object-cover"
+      class="w-full h-full object-cover pointer-events-none"
     ></video>
 
     <!-- 비디오 위 텍스트 -->
