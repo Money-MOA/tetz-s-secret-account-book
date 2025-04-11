@@ -5,13 +5,13 @@
         class="flex-[1_1_0%] flex items-center justify-center p-[2.5rem] bg-[#f3f4f6]"
       >
         <div
-          class="flex flex-col gap-6 bg-white p-[6%] rounded-[0.75rem] shadow-lg"
+          class="flex flex-col gap-6 bg-white pt-[4rem] pr-[9rem] pb-[7rem] pl-[9rem] rounded-[0.75rem] shadow-lg"
         >
           <!-- ✅ 카테고리 드롭다운 (좌측 상단) -->
           <div class="flex justify-start">
             <select
               v-model="selectedView"
-              class="px-[1rem] py-[0.5rem] rounded-[0.375rem] shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] border border-[#d1d5db] text-[0.875rem] text-[#374151] focus:outline-none focus:ring-[2px] focus:ring-[#3b82f6]"
+              class="px-[3.5rem] rounded-[0.375rem] shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] border border-[#d1d5db] text-[0.875rem] text-[#374151] focus:outline-none focus:ring-[2px] focus:ring-[#3b82f6] mr-[8rem] mt-[-3rem]"
             >
               <option disabled value="">선택</option>
               <option value="monthly">카테고리</option>
@@ -55,8 +55,12 @@ const fetchHistoryByCategory = async (userId) => {
     const month = today.getMonth() + 1;
 
     const thisMonthHistory = history.filter((item) => {
-      const [itemMonth] = item.date.split('-'); // MM-DD 에서 MM만 가져옴
-      return parseInt(itemMonth) === month && item.type === 'outcome';
+      const itemDate = new Date(item.date);
+      return (
+        itemDate.getFullYear() === year &&
+        itemDate.getMonth() + 1 === month &&
+        item.type === 'outcome'
+      );
     });
 
     const categoryMap = {};
