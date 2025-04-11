@@ -292,7 +292,7 @@ const logout = () => {
 }
 
 /* 모바일 반응형 */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1000px) {
   .desktop-only {
     display: none;
   }

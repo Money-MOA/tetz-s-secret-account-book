@@ -157,7 +157,116 @@
       ]
     }
   ],
-  "history": [],
-  "monthlyExpense": [],
-  "dailyExpense": []
+  "history": [
+    {
+      "id": "1fb4",
+      "userId": "1",
+      "date": "2025-04-02",
+      "month": 1,
+      "type": "outcome",
+      "category": "식비",
+      "memo": "한우 오마카세 1인분",
+      "price": 100
+    },
+    {
+      "id": "877c",
+      "userId": "1",
+      "date": "2025-04-09",
+      "month": 1,
+      "type": "outcome",
+      "category": "교통비",
+      "memo": "리무진 flex",
+      "price": 1000000
+    },
+    {
+      "id": "017e",
+      "userId": "1",
+      "date": "2025-04-02",
+      "month": 1,
+      "type": "income",
+      "category": "식비",
+      "memo": "알바",
+      "price": 1000
+    },
+    {
+      "id": "fba1",
+      "userId": "1",
+      "date": "2025-04-03",
+      "month": 4,
+      "type": "income",
+      "category": "식비",
+      "memo": "배고파",
+      "price": 1000
+    },
+    {
+      "id": "0fbb",
+      "userId": "1",
+      "date": "2025-04-02",
+      "month": 1,
+      "type": "outcome",
+      "category": "식비",
+      "memo": "1234",
+      "price": 122222
+    },
+    {
+      "id": "17e7",
+      "userId": "1",
+      "date": "2025-04-02",
+      "month": 1,
+      "type": "income",
+      "category": "식비",
+      "memo": "123441234",
+      "price": 525325
+    },
+    {
+      "id": "2c6f",
+      "userId": "1",
+      "date": "2025-04-02",
+      "month": 1,
+      "type": "outcome",
+      "category": "식비",
+      "memo": "1234234",
+      "price": 12341234
+    }
+  ],
+  "monthlyExpense": [
+    {
+      "id": "e6b0",
+      "userId": "1",
+      "month": 1,
+      "accumulatedExpense": 123426342139
+    },
+    {
+      "id": "2416",
+      "userId": "1",
+      "month": 4,
+      "accumulatedExpense": 1000
+    }
+  ],
+  "dailyExpense": [
+    {
+      "id": "f2a1",
+      "userId": "1",
+      "date": "2025-04-02",
+      "income": 526325,
+      "outcome": 12463556,
+      "balance": -11937231
+    },
+    {
+      "id": "f580",
+      "userId": "1",
+      "date": "2025-04-09",
+      "income": 0,
+      "outcome": 1000000,
+      "balance": -1000000
+    },
+    {
+      "id": "f084",
+      "userId": "1",
+      "date": "2025-04-03",
+      "income": 1000,
+      "outcome": 0,
+      "balance": 1000
+    }
+  ]
 }

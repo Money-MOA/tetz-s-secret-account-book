@@ -32,7 +32,7 @@ const hideSidebarRoutes = ['/login', '/signup', '/'];
 
 // 화면 너비 감지용
 const windowWidth = ref(window.innerWidth);
-const isMobile = computed(() => windowWidth.value < 768);
+const isMobile = computed(() => windowWidth.value < 1000);
 
 // resize 이벤트로 화면 크기 추적
 const handleResize = () => {
