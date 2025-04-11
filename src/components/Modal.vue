@@ -24,40 +24,34 @@
           <!-- <h3 class="text-center text-lg font-bold mb-[2rem]">2025-04-01</h3> -->
           <ul class="list-none">
             <li
+              @click="fillData(history)"
               v-for="history in modalData"
               :key="history"
               :class="[
                 'w-[22rem] p-[0.5rem] mb-[1rem] border border-[0.01rem] rounded-[1rem]',
-                history.type === 'income'
-                  ? 'bg-[#FFD7D7]'
-                  : 'bg-[#D7D7FF]',
+                history.type === 'income' ? 'bg-[#FFD7D7]' : 'bg-[#D7D7FF]',
               ]"
             >
               {{ history.type }} <br />
               {{ history.category }} <br />
+              {{ history.price }} <br />
               {{ history.memo }}
             </li>
           </ul>
         </div>
 
         <!-- 구분선 -->
-        <div
-          class="w-[1px] h-[80%] bg-[#c3c3c3] self-center"
-        ></div>
+        <div class="w-[1px] h-[80%] bg-[#c3c3c3] self-center"></div>
 
         <!-- 오른쪽 -->
         <div class="w-1/2 flex flex-col justify-between">
-          <h3
-            class="flex self-center text-lg font-semibold mb-[2rem]"
-          >
+          <h3 class="flex self-center text-lg font-semibold mb-[2rem]">
             수입 / 지출 내역 추가
           </h3>
           <ul class="flex flex-col gap-[1.5rem]">
             <!-- 카테고리 -->
             <li class="flex items-center gap-[1.2rem]">
-              <h4 class="text-[0.8rem] font-semibold">
-                카테고리
-              </h4>
+              <h4 class="text-[0.8rem] font-semibold">카테고리</h4>
               <div class="relative w-[17rem]">
                 <button
                   @click="dropOnOff"
@@ -93,9 +87,7 @@
 
             <!-- 금액 -->
             <li class="flex items-center gap-[1.5rem]">
-              <h4 class="text-[0.8rem] font-semibold">
-                금액
-              </h4>
+              <h4 class="text-[0.8rem] font-semibold">금액</h4>
               <input
                 type="number"
                 v-model.trim="price"
@@ -105,9 +97,7 @@
 
             <!-- 내용 -->
             <li class="flex items-center gap-[1.5rem]">
-              <h4 class="text-[0.8rem] font-semibold">
-                내용
-              </h4>
+              <h4 class="text-[0.8rem] font-semibold">내용</h4>
               <textarea
                 maxlength="20"
                 v-model.trim="memo"
@@ -117,9 +107,7 @@
 
             <!-- 수입 / 지출 선택 -->
             <li class="flex items-center gap-[1.5rem]">
-              <h4 class="text-[0.8rem] font-semibold">
-                지출
-              </h4>
+              <h4 class="text-[0.8rem] font-semibold">지출</h4>
               <input
                 type="radio"
                 name="type"
@@ -127,32 +115,28 @@
                 v-model="type"
                 class="mr-2"
               />
-              <h4 class="text-[0.8rem] font-semibold">
-                수입
-              </h4>
-              <input
-                type="radio"
-                name="type"
-                value="income"
-                v-model="type"
-              />
+              <h4 class="text-[0.8rem] font-semibold">수입</h4>
+              <input type="radio" name="type" value="income" v-model="type" />
             </li>
           </ul>
 
           <!-- 버튼 -->
           <div class="flex justify-end gap-2 mt-8">
             <button
+              @click="deleteData"
               class="w-[4rem] h-[2rem] bg-[#169976] text-white border-none shadow-none rounded-[0.5rem]"
             >
               삭제
             </button>
             <button
+              @click="updateData"
               class="w-[4rem] h-[2rem] bg-[#169976] text-white border-none shadow-none rounded-[0.5rem]"
             >
               수정
             </button>
             <button
               @click="setData"
+              type="button"
               class="w-[4rem] h-[2rem] bg-[#169976] text-white border-none shadow-none rounded-[0.5rem]"
             >
               추가
@@ -173,26 +157,36 @@ import { useRoute, useRouter } from 'vue-router';
 const router = useRouter();
 const BASE_URL = '/api';
 
+const historyUrl = BASE_URL + '/history';
+const monthlyUrl = BASE_URL + '/monthlyExpense';
+const dailyUrl = BASE_URL + '/dailyExpense';
+
 const modalData = ref([]);
 // props 받아옴
 const props = defineProps(['date']);
 print(props.date);
 const dateObj = new Date(props.date);
 const month = dateObj.getMonth() + 1;
+const day = dateObj.getDate();
+console.log(typeof month);
+console.log(month);
+console.log(typeof day);
+console.log(day);
 
 const route = useRoute();
 const userId = route.params.id;
 
+const dropOn = ref(false);
+const category = ref('식비');
 const price = ref(0);
 const memo = ref('');
 const type = ref('');
+const income = ref('');
+const outcome = ref('');
 
 const modalStore = useModalStore();
 const visible = computed(() => modalStore.isModalVisible);
 const { hideModal } = modalStore;
-
-const dropOn = ref(false);
-const category = ref('식비');
 
 function dropOnOff() {
   dropOn.value = !dropOn.value;
@@ -223,96 +217,153 @@ watch(visible, (newVal) => {
   }
 });
 
+function fillData(history) {
+  category.value = history.category;
+  price.value = history.price;
+  memo.value = history.memo;
+  type.value = history.type;
+  income.value = type.value == 'income' ? price.value : 0;
+  outcome.value = type.value == 'outcome' ? price.value : 0;
+  console.log(income.value);
+}
+
+// 내역 추가
 async function setData() {
-  const historyUrl = BASE_URL + '/history';
-  const monthlyUrl = BASE_URL + '/monthly';
-  const weeklyUrl = BASE_URL + '/weekly';
-  const dailyUrl = BASE_URL + '/daily';
+  try {
+    income.value = type.value == 'income' ? price.value : 0;
+    outcome.value = type.value == 'outcome' ? price.value : 0;
+    // 아직 값이 없으면 추가할 데이터 객체
+    const hData = {
+      userId: userId,
+      date: props.date,
+      month: month,
+      type: type.value,
+      category: category.value,
+      memo: memo.value,
+      price: price.value,
+    };
+    const mData = {
+      userId: userId,
+      month: month,
+      accumulatedExpense: price.value,
+    };
+    const dData = {
+      userId: userId,
+      date: props.date,
+      income: income.value,
+      outcome: outcome.value,
+      balance: income.value - outcome.value,
+    };
 
-  const income = type.value == 'income' ? price.value : 0;
-  const outcome = type.value == 'outcome' ? price.value : 0;
+    const postRes = await axios.post(historyUrl, hData);
+    // console.log(postRes.data.something.deep.value);
 
-  console.log('week');
-  console.log(modalData[0].week);
+    const mRes = await axios.get(
+      `${monthlyUrl}?userId=${userId}&month=${month}`
+    );
+    console.log('mRes');
+    console.log(mRes);
+    //  DB에 값 없으면 추가
+    if (mRes.data.length === 0) {
+      await axios.post(monthlyUrl, mData);
+    }
+    //  DB에 값이 이미 있으면 수정
+    else {
+      await axios.patch(`${monthlyUrl}/${mRes.data[0].id}`, {
+        accumulatedExpense: mRes.data[0].accumulatedExpense + price.value,
+      });
+    }
 
-  // 아직 값이 없으면 추가할 데이터 객체
-  const hData = {
-    userId: userId,
-    date: props.date,
-    month: month,
-    week: modalData[0].week,
-    type: type.value,
-    category: category.value,
-    memo: memo.value,
-    price: price.value,
-  };
-  const mData = {
-    userId: userId,
-    month: month,
-    accumulatedExpense: price.value,
-  };
-  const wData = {
-    userId: userId,
-    month: month,
-    week: modalData[0].week,
-    outcome: outcome,
-  };
-  const dData = {
-    userId: userId,
-    date: props.date,
-    income: income,
-    outcome: outcome,
-    balance: income - outcome,
-  };
+    const dRes = await axios.get(
+      `${dailyUrl}?userId=${userId}&date=${props.date}`
+    );
+    if (dRes.data.length === 0) {
+      await axios.post(dailyUrl, dData);
+    } else {
+      await axios.patch(`${dailyUrl}/${dRes.data[0].id}`, {
+        income: dRes.data[0].income + income.value,
+        outcome: dRes.data[0].outcome + outcome.value,
+        balance:
+          dRes.data[0].income + income - (dRes.data[0].outcome + outcome),
+      });
+    }
 
-  await axios.post(historyUrl, hData);
-
-  const mRes = await axios.get(
-    `${monthlyUrl}?userId=${userId}&month=${modalData[0].month}`
-  );
-  //  DB에 값 없으면 추가
-  if (mRes.data.length === 0) {
-    await axios.post(monthlyUrl, mData);
-  }
-  //  DB에 값이 이미 있으면 수정
-  else {
-    await axios.patch(`${monthlyUrl}/${mRes.data[0].id}`, {
-      accumulatedExpense:
-        mRes.data[0].accumulatedExpense + price.value,
-    });
-  }
-
-  const wRes = await axios.get(
-    `${weeklyUrl}?userId=${userId}&week=${modalData[0].week}`
-  );
-  if (wRes.data.length === 0) {
-    await axios.post(weeklyUrl, wData);
-  } else {
-    await axios.patch(`${weeklyUrl}/${wRes.data[0].id}`, {
-      outcome: wRes.data[0].outcome + outcome,
-    });
-  }
-
-  const dRes = await axios.get(
-    `${dailyUrl}?userId=${userId}&date=${props.date}`
-  );
-  if (dRes.data.length === 0) {
-    await axios.post(dailyUrl, dData);
-  } else {
-    await axios.patch(`${dailyUrl}/${dRes.data[0].id}`, {
-      income: dRes.data[0].income + income,
-      outcome: dRes.data[0].outcome + outcome,
-      balance:
-        dRes.data[0].income +
-        income -
-        (dRes.data[0].outcome + outcome),
-    });
+    console.log('추가 완료');
+  } catch (e) {
+    console.error(e);
   }
 }
 
-async function updateData() {}
+async function updateData() {
+  try {
+    income.value = type.value == 'income' ? price.value : 0;
+    outcome.value = type.value == 'outcome' ? price.value : 0;
 
-async function deleteData() {}
+    const hRes = await axios.get(
+      `${historyUrl}?userId=${userId}&date=${props.date}&memo=${memo.value}`
+    );
+    console.log(hRes.data);
+    const mRes = await axios.get(
+      `${monthlyUrl}?userId=${userId}&month=${month}`
+    );
+    const dRes = await axios.get(
+      `${dailyUrl}?userId=${userId}&date=${props.date}`
+    );
+
+    const hData = {
+      type: type.value,
+      category: category.value,
+      memo: memo.value,
+      price: price.value,
+    };
+    const mData = {
+      accumulatedExpense: mRes.data[0].accumulatedExpense,
+    };
+    const dData = {
+      income: dRes.data[0].income + income.value,
+      outcome: dRes.data[0].outcome + outcome.value,
+      balance:
+        dRes.data[0].income +
+        income.value -
+        (dRes.data[0].outcome + outcome.value),
+    };
+
+    await axios.patch(`${historyUrl}/${hRes.data[0].id}`, hData);
+    await axios.patch(`${monthlyUrl}/${mRes.data[0].id}`, mData);
+    await axios.patch(`${dailyUrl}/${dRes.data[0].id}`, dData);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+async function deleteData() {
+  income.value = type.value == 'income' ? price.value : 0;
+  outcome.value = type.value == 'outcome' ? price.value : 0;
+
+  const hRes = await axios.get(
+    `${historyUrl}?userId=${userId}&date=${props.date}&memo=${memo.value}`
+  );
+  const mRes = await axios.get(`${monthlyUrl}?userId=${userId}&month=${month}`);
+  const dRes = await axios.get(
+    `${dailyUrl}?userId=${userId}&date=${props.date}`
+  );
+
+  const mData = {
+    accumulatedExpense: mRes.data[0].accumulatedExpense + outcome.value,
+  };
+  const dData = {
+    income: dRes.data[0].income - income.value,
+    outcome: dRes.data[0].outcome - outcome.value,
+    balance:
+      dRes.data[0].income +
+      income.value -
+      (dRes.data[0].outcome + outcome.value),
+  };
+
+  await axios.delete(`${historyUrl}/${hRes.data[0].id}`);
+  await axios.patch(`${monthlyUrl}/${mRes.data[0].id}`, mData);
+  await axios.patch(`${dailyUrl}/${dRes.data[0].id}`, dData);
+}
 </script>
 
 <style scoped>
