@@ -12,7 +12,7 @@ import MainTop from '@/components/MainTop.vue';
         <div class="h-screen flex flex-col box-border">
           <!-- :흰색_확인_표시: 상단 영역 (절반) -->
           <div
-            class="h-[41%] bg-white p-[1rem] shadow mx-[1rem] rounded-[0.75rem]"
+            class="h-[41%] bg-white p-[1rem] shadow mx-[1rem] rounded-[0.75rem] flex flex-col min-h-0"
           >
             <MainTop class="flex-1 min-h-0" />
             <div class="flex-1 min-h-0 overflow-auto"></div>

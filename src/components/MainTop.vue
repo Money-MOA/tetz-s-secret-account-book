@@ -9,7 +9,7 @@
 
     <!-- Chart 영역 -->
     <div class="chart-wrapper">
-      <div v-if="chartData.labels.length">
+      <div v-if="chartData.labels.length" class="h-full">
         <Bar :data="chartData" :options="chartOptions" />
       </div>
     </div>
@@ -155,6 +155,7 @@ onMounted(async () => {
 
 .chart-wrapper {
   flex: 1;
+  min-height: 0;
   min-height: 100px;
   overflow: hidden;
   width: 100%;
