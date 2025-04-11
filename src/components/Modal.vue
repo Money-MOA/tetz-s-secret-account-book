@@ -195,10 +195,22 @@ const modalData = ref([]);
 const props = defineProps(['date']);
 print(props.date);
 const dateObj = new Date(props.date);
-const month = dateObj.getMonth() + 1;
+
+let month = 0; // 진짜 숫자 값만 저장
+
+watch(
+  () => props.date,
+  (newDate) => {
+    if (newDate) {
+      month = Number(newDate.slice(5, 7));
+    }
+  },
+  { immediate: true }
+);
+
 const day = dateObj.getDate();
 console.log(typeof month);
-console.log(month);
+console.log('month', month);
 console.log(typeof day);
 console.log(day);
 
